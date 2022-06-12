@@ -9,7 +9,6 @@
         add(val) {
             this.value.push(val);
             this.bubbleUp(this.value.length-1);
-            console.log(this.value)
             if(this.value.length > this.capacity) this.remove();
         }
         
