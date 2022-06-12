@@ -1,6 +1,4 @@
-var findKthLargest = function(nums, k) {
-    
-    // ============ Min Heap Class
+ // ============ Min Heap Class
     class MinHeap {
         
         constructor(capacity) {
@@ -51,7 +49,9 @@ var findKthLargest = function(nums, k) {
             [this.value[i], this.value[j]] = [this.value[j], this.value[i]];
         }
     }
-    // ==============
+
+
+var findKthLargest = function(nums, k) {
     
     const minHeap = new MinHeap(k);
     
