@@ -12,13 +12,12 @@
  * @return {number}
  */
 var kthSmallest = function(root, k) {
-    const res = []
+    
     let count = 0
     let target = null
     const dfs = (node) =>{
         if(!node) return null
         dfs(node.left)
-        res.push(node.val)
         count++
         if(count === k) {
         target = node.val
