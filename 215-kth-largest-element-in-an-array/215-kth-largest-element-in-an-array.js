@@ -9,13 +9,14 @@
         add(val) {
             this.value.push(val);
             this.bubbleUp(this.value.length-1);
+            console.log(this.value)
             if(this.value.length > this.capacity) this.remove();
         }
         
         remove() {
             this.swap(0, this.value.length-1);
             const min = this.value.pop();
-            this.trickleDown(0);
+            this.trickleDown(0);  
             return min;
         }
         
