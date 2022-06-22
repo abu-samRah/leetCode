@@ -9,7 +9,6 @@ var nextGreatestLetter = function(letters, target) {
     const binarySearch = (start,end) =>{
         while(start<=end) {
         const mid = Math.floor((start+end)/2)
-        console.log(start,end)
         if(letters[mid] > target && letters[mid - 1] <= target) return letters[mid]
         else if(letters[mid] > target) end = mid -1 
         else start = mid + 1
