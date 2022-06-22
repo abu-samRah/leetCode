@@ -4,17 +4,19 @@
  * @return {number[]}
  */
 var intersect = function(nums1, nums2) {
-    const myMap = {}
-    const A = nums1.length < nums2.length ? nums1 : nums2
-    const B = nums1.length < nums2.length ? nums2 : nums1
-    const res = []
-    
-    for(let i =0; i<A.length ; i++) myMap[A[i]] = (myMap[A[i]] || 0) + 1
-    for(let i =0; i<B.length ; i++){
-        if(myMap[B[i]]){
-            res.push(B[i])
-            myMap[B[i]]--
+    let a1 = nums1.sort((a,b)=> a-b);
+    let a2 = nums2.sort((a,b)=> a-b);
+    let result = [];
+    while(a1.length && a2.length){
+        if(a1[0] === a2[0]){
+            result.push(a1.shift());
+            a2.shift();
+        } 
+        else if(a1[0] > a2[0]){
+            a2.shift();
+        }else{
+            a1.shift();
         }
     }
-    return res
+    return result
 };
