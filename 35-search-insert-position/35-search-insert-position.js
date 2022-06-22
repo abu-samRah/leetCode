@@ -13,7 +13,6 @@ var searchInsert = function(nums, target) {
         else if(target < nums[mid]) end = mid -1
         else start = mid + 1
     }
-    console.log(nums[start])
     return nums[start] >= target ? start : start+1
     
 };
