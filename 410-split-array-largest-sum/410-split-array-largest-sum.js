@@ -5,12 +5,10 @@
  */
 var splitArray = function(nums, m) {
     let low = Math.max(...nums);
-    let high = 0;
+    let high = nums.reduce((a,b) => a + b , 0);
     let ans = 0;
     
-    for(let num of nums) {
-        high += num;
-    }
+  
     
     while(low <= high) {
         let mid = Math.floor(low + (high - low) / 2); // to prevent overflow
