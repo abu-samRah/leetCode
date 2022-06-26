@@ -14,13 +14,13 @@ Solution.prototype.pickIndex = function() {
   let index = Math.floor(Math.random() * this.sum);
     let arr = this.weights
     let start = 0, end = arr.length - 1
-    while(start <= end){
+    while(start < end){
         let mid = Math.floor((start + end) / 2)
         if(index < arr[mid]){
-            end = mid - 1
+            end = mid 
         }else{
             start = mid + 1
         }
     }
-    return start
+    return end
 };
