@@ -11,16 +11,16 @@ var Solution = function(w) {
 };
 
 Solution.prototype.pickIndex = function() {
+    
   let index = Math.floor(Math.random() * this.sum);
-    let arr = this.weights
-    let start = 0, end = arr.length - 1
+    
+    let start = 0, end = this.weights.length - 1
+    
     while(start < end){
         let mid = Math.floor((start + end) / 2)
-        if(index < arr[mid]){
-            end = mid 
-        }else{
-            start = mid + 1
-        }
+        if(index < this.weights[mid]) end = mid 
+        else start = mid + 1
     }
+    
     return end
 };
