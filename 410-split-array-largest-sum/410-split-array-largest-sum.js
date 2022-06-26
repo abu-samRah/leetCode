@@ -8,19 +8,18 @@ var splitArray = function(nums, m) {
     let high = nums.reduce((a,b) => a + b , 0);
     let ans = 0;
     
-  
-    
-    while(low <= high) {
-        let mid = Math.floor(low + (high - low) / 2); // to prevent overflow
+
+    while(low < high) {
+        let mid = Math.floor(low + (high - low) / 2); 
         
         if(isPossible(nums, mid, m)) {
-            ans = mid;
-            high = mid - 1;
+            
+            high = mid;
         } else {
             low = mid + 1;
         }
     }
-    return ans;
+    return high;
 };
 
 function isPossible(arr, mid, noOfParts) {
