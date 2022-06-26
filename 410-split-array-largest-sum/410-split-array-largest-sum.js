@@ -8,7 +8,7 @@ var splitArray = function(nums, m) {
     let high = nums.reduce((a,b) => a + b , 0);
 
     while(low < high) {
-        let mid = Math.floor(low + (high - low) / 2); 
+        let mid = low +  Math.floor((high - low) / 2); 
         if(isPossible(nums, mid, m)) high = mid;  
         else low = mid + 1;
     }
