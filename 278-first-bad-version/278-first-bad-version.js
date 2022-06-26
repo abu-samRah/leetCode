@@ -15,13 +15,8 @@
 
 
 var solution = function(isBadVersion) {
-    /**
-     * @param {integer} n Total versions
-     * @return {integer} The first bad version
-     */
     return function(n) {
-        // binary search
-       var low = 1, high = n;
+       let low = 1, high = n;
        while(low < high){
            const mid = low + Math.floor((high-low)/2);
            if(isBadVersion(mid)) high = mid
