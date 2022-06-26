@@ -15,14 +15,14 @@ var splitArray = function(nums, m) {
     return high;
 };
 
-function isPossible(arr, mid, noOfParts) {
+function isPossible(arr, currMax, noOfParts) {
     let part = 1;
     let sum = 0;
     
     for(let i = 0; i < arr.length; i++) {
         sum += arr[i];
         
-        if(sum > mid) {
+        if(sum > currMax) {
             part++;
             sum = arr[i];
         }
