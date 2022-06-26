@@ -4,18 +4,14 @@
  * @return {character}
  */
 var nextGreatestLetter = function(letters, target) {
-    if(letters[0] > target || letters[letters.length -1] <= target) return letters[0]
+    let high = letters.length
+    let low = 0
     
-    const binarySearch = (start,end) =>{
-        while(start<=end) {
-        const mid = Math.floor((start+end)/2)
-        if(letters[mid] > target && letters[mid - 1] <= target) return letters[mid]
-        else if(letters[mid] > target) end = mid -1 
-        else start = mid + 1
-        } 
-        
+    while(low < high){
+        const mid = low + Math.floor((high - low)/2)
+        if(letters[mid] > target) high = mid
+        else low = mid + 1
     }
     
-    const letter = binarySearch(0,letters.length -1)
-    return letter
+    return letters[high] ?? letters[0]
 };
