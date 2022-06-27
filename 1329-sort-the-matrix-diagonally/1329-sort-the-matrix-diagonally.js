@@ -8,7 +8,7 @@ var diagonalSort = function(mat) {
     
     for(let col =0; col<n ; col++) sort(mat,0,col,m,n)
     
-    for(let row =1; row<m ; row++) sort(mat,row,0,m,n)
+    for(let row =0; row<m ; row++) sort(mat,row,0,m,n)
     
     return mat
     
