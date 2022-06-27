@@ -2,19 +2,17 @@
  * @param {number[]} nums
  * @return {void} Do not return anything, modify nums in-place instead.
  */
-const wiggleSort = (nums) => {
-    nums.sort((a , b) => a - b);
-    const tmp = [...nums];
-    let low = Math.floor((nums.length - 1)/2);
-    let high = nums.length -1;
-    for(let i = 0; i < nums.length; i++) {
-        if(i % 2 === 0) {
-            nums[i] = tmp[low];
-            low--;
+var wiggleSort = function(nums) {
+    nums.sort((b,a)=>b-a);
+    let mid = Math.floor(nums.length/2)
+    mid+=nums.length%2==0?0:1;
+    let even = nums.slice(0, mid);
+    let odd = nums.slice(mid);
+    for(let i=0;i<nums.length;i++) {
+        if (i%2==0) {
+            nums[i] = even.pop();
         } else {
-            nums[i] = tmp[high];
-            high--;
+            nums[i] = odd.pop();
         }
     }
-    return nums;
 };
