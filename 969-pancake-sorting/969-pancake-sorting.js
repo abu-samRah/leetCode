@@ -2,7 +2,9 @@
  * @param {number[]} arr
  * @return {number[]}
  */
-var pancakeSort = function(a, arr=[], max=a.length) {
+var pancakeSort = function(a) {
+    const arr = []
+    let max = a.length
     while(max>1){
         flip(a.indexOf(max));
         max--;  
@@ -14,7 +16,7 @@ var pancakeSort = function(a, arr=[], max=a.length) {
             };
             arr.push(indx+1);
         }
-        const len=max-1;
+        const len =max-1;
         for(let q=0; q<len/2; q++){
             [[a[q], a[len-q]] = [a[len-q], a[q]]];
         };
