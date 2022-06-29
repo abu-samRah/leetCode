@@ -10,12 +10,12 @@ var pancakeSort = function(a) {
         max--;  
     }
     function flip(indx){
-        if(indx){
+      
             for(let q=0; q<indx/2; q++){
                 [[a[q], a[indx-q]] = [a[indx-q], a[q]]];
             };
             arr.push(indx+1);
-        }
+        
         const len =max-1;
         for(let q=0; q<len/2; q++){
             [[a[q], a[len-q]] = [a[len-q], a[q]]];
