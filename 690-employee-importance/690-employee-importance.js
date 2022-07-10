@@ -14,7 +14,6 @@
  */
 var GetImportance = function(employees, id) {
     const root = employees.find(employee => employee.id === id)
-    if(!root) return 0
     const queue = []
     queue.push(root)
     const visited = {[id]:true}
