@@ -11,7 +11,6 @@
  * @return {number}
  */
 var deepestLeavesSum = function(root) {
-
     const possible = []
     const inOrder = (node,depth) =>{
         if(node){
