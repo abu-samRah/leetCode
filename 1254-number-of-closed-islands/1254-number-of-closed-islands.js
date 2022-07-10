@@ -3,12 +3,12 @@
  * @return {number}
  */
 var closedIsland = function(grid) {
-      let count = 0;
+    let count = 0;
     let row = grid.length;
     let column = grid[0].length;
-    for(let i = 0; i<grid.length; i++){
+    for(let i = 0; i<row; i++){
 
-        for(let j=0; j<grid[0].length; j++){
+        for(let j=0; j<column; j++){
             if (grid[i][j] == 0){
                 if (helper(i,j))count++;
             }
@@ -27,5 +27,6 @@ var closedIsland = function(grid) {
         return top && bottom && left && right;
 
     }
+    console.log(grid)
     return count
 };
