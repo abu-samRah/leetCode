@@ -11,25 +11,21 @@
  * @return {number}
  */
 var deepestLeavesSum = function(root) {
-    const possible = []
-    const inOrder = (node,depth) =>{
-        if(node){
-            if(!node.left&&!node.right){
-                possible.push({depth,val:node.val})
-                return
-            }
-            inOrder(node.left, depth +1)
-            inOrder(node.right, depth +1)
-        }
-    }
-    inOrder(root,0)
-    const maxDepth = possible.reduce((acc,curr) => Math.max(acc,curr.depth),-1)
-    return possible.reduce((acc,curr) => {
-        if(curr.depth!==maxDepth){
-            return acc
-        }else{
-            return acc + curr.val
-        }
-    },0)
+    if (!root)
+        return 0;
     
+    let cache = [];
+    const rec = (root, depth = 0) => {
+        if (!root)
+            return 0;
+        
+        
+        cache[depth] = (cache[depth] || 0) + root.val;
+        
+        rec(root.left, depth + 1);
+        rec(root.right, depth + 1);
+    }
+    
+    rec(root);
+    return cache[cache.length - 1];    
 };
