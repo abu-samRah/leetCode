@@ -24,7 +24,7 @@ class MyQueue extends Map {
     return el;
   }
     
-  size(){
+  isEmpty(){
       return this.insertionIndex === this.removalIndex
   }
 }
@@ -34,7 +34,7 @@ var canVisitAllRooms = function(rooms) {
     const queue = new MyQueue()
     queue.enqueue(rooms[0])
     map.set(0,true)
-    while(!queue.size()){
+    while(!queue.isEmpty()){
         const nodes = queue.dequeue()
         for(let i=0; i<nodes.length; i++){
             if(!map.get(nodes[i])){
