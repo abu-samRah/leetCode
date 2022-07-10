@@ -13,22 +13,19 @@
  * @return {number}
  */
 var GetImportance = function(employees, id) {
-    const root = employees.find(employee => employee.id === id)
-    const queue = []
-    queue.push(root)
-    const visited = {[id]:true}
-    let total = 0
-    while(queue.length){
-        const current = queue.shift()
-        total += current.importance
-        for(let i=0; i<current.subordinates.length; i++){
-            if(!visited[current.subordinates[i]]){
-                visited[current.subordinates[i]] = true
-                queue.push(employees.find(employee => employee.id === current.subordinates[i]))
-            }
-        }
+    let employeeMap = new Map();
+    for (employee of employees) {
+        employeeMap.set(employee.id, {importance : employee.importance, sub : employee.subordinates})
     }
     
-    return total
+    let totalImportance = 0;
+    let queue = [id];
     
+    while(queue.length > 0) {
+        let currentEmployee = employeeMap.get(queue.shift());
+        totalImportance += currentEmployee.importance;
+        queue.push(...currentEmployee.sub)
+    }
+    
+    return totalImportance
 };
