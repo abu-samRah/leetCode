@@ -1,16 +1,27 @@
 var isBipartite = function(graph) {
-    let len = graph.length, s = [], vis = new Uint8Array(len)
-    for (let i = 0; i < len; i++) {
-        if (vis[i]) continue
-        vis[i] = 1, s.push(i)
-        while (s.length) {
-            let curr = s.pop(), edges = graph[curr]
-            for (let j = 0; j < edges.length; j++) {
-                let next = edges[j]
-                if (!vis[next]) vis[next] = vis[curr] ^ 3, s.push(next)
-                else if (vis[curr] === vis[next]) return false
+    const colors = new Map();
+    const stack = [];
+    
+    for (let i = 0; i < graph.length; i++) {
+        if (colors.has(i)) continue;
+        
+        colors.set(i, true);
+        stack.push(i);
+
+        while (stack.length > 0) {
+            let current = stack.pop();
+
+            for (let neighbour of graph[current]) {
+                if (!colors.has(neighbour)) {
+                    colors.set(neighbour, !colors.get(current));
+                    stack.push(neighbour);
+                    continue;
+                }
+                
+                if (colors.get(neighbour) === colors.get(current)) return false;
             }
         }
     }
+    
     return true
 };
