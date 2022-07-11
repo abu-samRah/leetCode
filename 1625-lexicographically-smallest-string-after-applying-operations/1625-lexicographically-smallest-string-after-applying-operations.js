@@ -1,64 +1,34 @@
 var findLexSmallestString = function(s, a, b) {
-    const n = s.length;
-    const visited = new Set();
-    const queue = []; 
-   
-    visited.add(s);
-    queue.push(s);
+    const set=new Set();
+    let result=s;
+    dfs(s,a,b)
+    return result;
     
-    let minNum = s;
-    
-    while (queue.length > 0) {
-        const currNum = queue.shift();
-
-        if (currNum < minNum) minNum = currNum;
-        
-        const justRotate = rotate(currNum);
-        const justAdd = add(currNum);
-
-        if (!visited.has(justRotate)) {
-            visited.add(justRotate);
-            queue.push(justRotate);
-        }
-        
-        if (!visited.has(justAdd)) {
-            visited.add(justAdd);
-            queue.push(justAdd);
-        }
-    }
-    
-    return minNum;
-    
-    function rotate(num) {
-        let rotatedNum = "";
-        const start = n - b;
-        
-        for (let i = 0; i < b; i++) {
-            rotatedNum += num.charAt(start + i);
-        }
-        
-        const restDigs = num.substring(0, n - b);
-        rotatedNum += restDigs;
-        
-        return rotatedNum;
-    }
-    
-    
-    function add(num) {
-        let nextNum = "";        
-
-        for (let i = 0; i < n; i++) {
-            let currDig = num.charAt(i);
-            
-            if (i % 2 == 0) {
-                nextNum += currDig;
-            }
-            else {
-                let newDig = (parseInt(currDig) + a) % 10;
-                nextNum += newDig;
+    function add(s){
+        let res=''
+        for(let i=0;i<s.length;i++){
+            if(i%2){
+                res+=((+s[i]+a)%10).toString()
+            }else{
+                res+=s[i]
             }
         }
-        
-        return nextNum;
+        return res
+    }
+    
+    function rotate(s){
+        let res=""
+        res += s.substring(s.length-b) + s.substring(0,s.length-b);
+        return res;
+    }
+    
+    function dfs(str,a,b){
+        if(set.has(str)) return;
+        set.add(str);
+        if(result>str){
+            result=str
+        }
+        dfs(add(str),a,b)
+        dfs(rotate(str),a,b)
     }
 };
