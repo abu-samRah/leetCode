@@ -16,9 +16,6 @@ var numIslands = function(grid) {
     return islands
 };
 
-const dx = [1,-1,0,0]
-const dy = [0,0,1,-1]
-
 const dfs = (grid, i, j) =>{
     if( i<0 || j<0 || i>=grid.length || j>=grid[0].length || grid[i][j] === "0" ) return 0
     grid[i][j] = "0"
