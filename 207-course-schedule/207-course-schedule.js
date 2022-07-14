@@ -16,7 +16,6 @@ var canFinish = function(numCourses, prerequisites) {
 const prepareInput = (numCourses,prerequisites) =>{
     const connections = new Array(numCourses).fill([])
     for(let i=0; i<prerequisites.length; i++){
-        const curr = connections[prerequisites[i][1]]
         if(connections[prerequisites[i][1]].length) 
             connections[prerequisites[i][1]].push(prerequisites[i][0]) 
         else{
