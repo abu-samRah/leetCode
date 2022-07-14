@@ -4,8 +4,6 @@
  * @return {boolean}
  */
 
-const VISITED = 2, VISITING = 1, UNVISITED = 0;
-
 var canFinish = function(numCourses, prerequisites) {
     const connections = prepareInput(numCourses,prerequisites);
     return solution(connections)
@@ -20,6 +18,8 @@ const prepareInput = (numCourses, prerequisites) => {
   }
   return connections;
 };
+
+const VISITED = 2, VISITING = 1, UNVISITED = 0;
 
 function solution(connections) {
     const visitedList = new Array(connections.length).fill(UNVISITED)
