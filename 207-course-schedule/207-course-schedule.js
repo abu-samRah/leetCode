@@ -13,18 +13,13 @@ var canFinish = function(numCourses, prerequisites) {
     
 };
 
-const prepareInput = (numCourses,prerequisites) =>{
-    const connections = new Array(numCourses).fill([])
-    for(let i=0; i<prerequisites.length; i++){
-        if(connections[prerequisites[i][1]].length) 
-            connections[prerequisites[i][1]].push(prerequisites[i][0]) 
-        else{
-            connections[prerequisites[i][1]] = []
-            connections[prerequisites[i][1]].push(prerequisites[i][0]) 
-        }
-    }
-    return connections
-}
+const prepareInput = (numCourses, prerequisites) => {
+  const connections =  [...Array(numCourses)].map(e => Array(0));
+  for (let i = 0; i < prerequisites.length; i++) {
+      connections[prerequisites[i][1]].push(prerequisites[i][0]);
+  }
+  return connections;
+};
 
 function solution(connections) {
     const visitedList = new Array(connections.length).fill(UNVISITED)
