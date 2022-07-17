@@ -28,10 +28,12 @@ var snakesAndLadders = function(board) {
 };
 
 const isGoal = (current , N) => current === N*N
+
 const getLoc = (pos,N) => {
     let row = Math.floor((pos - 1) / N);
     let col = (pos - 1) % N;
     col = (row % 2) === 1 ? N - col - 1 : col;
     row = N - row - 1;
     return [row,col];
-  }
+}
+
