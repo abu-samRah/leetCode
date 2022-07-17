@@ -18,7 +18,7 @@ var ladderLength = function(beginWord, endWord, wordList) {
        for(let i=0; i<wordList.length; i++){
            if(check(front,wordList[i],wordSet)){
                queue.push(wordList[i])
-                wordSet.delete(wordList[i])
+               wordSet.delete(wordList[i])
            } 
        }
        i++
