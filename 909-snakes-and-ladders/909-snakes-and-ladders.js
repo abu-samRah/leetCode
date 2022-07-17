@@ -8,19 +8,19 @@ var snakesAndLadders = function(board) {
     return [row,col];
   }
   const q = [1];
-  const v = {'1': 0};
+  const seen = new Array(N*N).fill(0)
   let ans = 0
   let currLen = q.length, i = 0
-  
+  seen[0] = 1
   while(i<currLen) {
     const n = q.shift();
     if(n === N*N) return ans;
     for(let i = n+1; i <= Math.min(n+6, N*N); i++) {
       const [r, c] = getLoc(i);
       const next = board[r][c] === -1 ? i : board[r][c];
-      if(v[next] === undefined) {
+      if(!seen[next-1]) {
         q.push(next);
-        v[next] = v[n] + 1;
+        seen[next-1] = 1;
       }
     }
       i++
