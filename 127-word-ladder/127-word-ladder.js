@@ -5,28 +5,47 @@
  * @return {number}
  */
 var ladderLength = function(beginWord, endWord, wordList) {
-    const wordSet = new Set(wordList)
-    let queue = [beginWord];
-    let steps = 1;
+   const queue = [beginWord]
+   let ans = 1
+   const wordSet = new Set(wordList)
+   let currLen = queue.length, i =0
+   
+   while(i<currLen){
+       const front = queue.shift()
+       
+       if(isGoal(front,endWord)) return ans
+       
+       for(let i=0; i<wordList.length; i++){
+           if(check(front,wordList[i],wordSet)){
+               queue.push(wordList[i])
+                wordSet.delete(wordList[i])
+           } 
+       }
+       i++
+       
+       if(i>=currLen){
+           ans++
+           currLen = queue.length
+           i = 0
+       }
+   }
     
-   while (queue.length) {
-        const n = queue.length;
-        for (let i = 0; i < n; i++) {
-            const word = queue.shift();
-            if (word === endWord) return steps;
-            
-            for (let j = 0; j < word.length; j++) {
-                for (let k = 0; k < 26; k++) {
-                    const newWord = word.slice(0, j) + String.fromCharCode(k + 97) + word.slice(j + 1);
-                    if (wordSet.has(newWord)) {
-                        queue.push(newWord);
-                        wordSet.delete(newWord);
-                    }
-                }
-            }
-        }
-        
-        steps++;
-    }
-    return 0;    
+    return 0
 };
+    
+    
+const isGoal = (currWord, endWord) =>{
+    return currWord === endWord 
+}
+
+const check = (currWord, toWord,wordSet) =>{
+    if(currWord.length !== toWord.length || !wordSet.has(toWord)) return false
+    
+    let count = 0
+    
+    for(let i =0; i< currWord.length; i++){
+        if(currWord[i] !== toWord[i]) count++
+    }
+ 
+    return count === 1
+}
