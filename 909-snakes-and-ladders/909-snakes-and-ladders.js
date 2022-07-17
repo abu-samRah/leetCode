@@ -6,9 +6,9 @@ var snakesAndLadders = function(board) {
   let currLen = q.length, i = 0
   
   while(i<currLen) {
-    const n = q.shift();
-    if(n === N*N) return ans;
-    for(let i = n+1; i <= Math.min(n+6, N*N); i++) {
+    const current = q.shift();
+    if(isGoal(current,N)) return ans;
+    for(let i = current+1; i <= Math.min(current+6, N*N); i++) {
       const [r, c] = getLoc(i,N);
       const next = board[r][c] === -1 ? i : board[r][c];
       if(board[r][c] !== 'X') {
@@ -27,6 +27,7 @@ var snakesAndLadders = function(board) {
   return -1;
 };
 
+const isGoal = (current , N) => current === N*N
 const getLoc = (pos,N) => {
     let row = Math.floor((pos - 1) / N);
     let col = (pos - 1) % N;
