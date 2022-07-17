@@ -9,9 +9,12 @@ var snakesAndLadders = function(board) {
   }
   const q = [1];
   const v = {'1': 0};
-  while(q.length) {
+  let ans = 0
+  let currLen = q.length, i = 0
+  
+  while(i<currLen) {
     const n = q.shift();
-    if(n === N*N) return v[n];
+    if(n === N*N) return ans;
     for(let i = n+1; i <= Math.min(n+6, N*N); i++) {
       const [r, c] = getLoc(i);
       const next = board[r][c] === -1 ? i : board[r][c];
@@ -20,6 +23,12 @@ var snakesAndLadders = function(board) {
         v[next] = v[n] + 1;
       }
     }
+      i++
+      if(i >= currLen){
+          currLen = q.length
+          i = 0
+          ans++
+      }
   }
   
   return -1;
