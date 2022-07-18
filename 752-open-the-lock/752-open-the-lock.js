@@ -48,8 +48,8 @@ function getNextStates(s = '0000') {
   const ans= [];
   
   for (let i = 0; i < s.length; i++) {
-    ans.push(s.slice(0, i) + ((+s[i] + 1) % 10).toString() + s.slice(i + 1));
-    ans.push(s.slice(0, i) + ((+s[i] + 9) % 10).toString() + s.slice(i + 1));
+    ans.push(s.slice(0, i) + ((+s[i] + 1) % 10) + s.slice(i + 1));
+    ans.push(s.slice(0, i) + ((+s[i] + 9) % 10) + s.slice(i + 1));
   }
   
   return ans;
