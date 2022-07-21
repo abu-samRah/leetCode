@@ -1,7 +1,3 @@
-/**
- * @param {number[][]} heights
- * @return {number}
- */
 var minimumEffortPath = function(heights) {
     const directions = [
         [1, 0],
