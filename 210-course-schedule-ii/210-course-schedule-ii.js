@@ -7,10 +7,8 @@ var findOrder = function(numCourses, prerequisites) {
     const connections = prepareInput(numCourses,prerequisites);
     const ordering = new Array(numCourses).fill(0)
     let counter = {len:numCourses-1}
-    //console.log('counter',counter)
-    const found = solution(connections,ordering,counter)
-  
-    return typeof found === "boolean"? ordering : []
+    return solution(connections,ordering,counter)
+   
 };
 
 const prepareInput = (numCourses, prerequisites) => {
@@ -28,11 +26,11 @@ function solution(connections,ordering,counter) {
     
     for(let index=0; index<connections.length; index++){
         if(visitedList[index] === UNVISITED) 
-            if(!dfs(index,connections,visitedList,ordering,counter)) 
+            if(!dfs(index,connections,visitedList,ordering,counter))
                 return []
     }
 
-    return true
+    return ordering
 }
 
 const dfs = (index,connections,visitedList,ordering,counter) =>{
