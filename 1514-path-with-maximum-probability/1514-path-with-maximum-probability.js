@@ -25,7 +25,6 @@ var maxProbability = function(n, edges, succProb, start, end) {
         adjList[v].push([u, weight]);
     }
     
-    
     const maxHeap = new PriorityQueue((a, b) => a[1] > b[1]);
     
     maxHeap.push([ start, 1 ]);
