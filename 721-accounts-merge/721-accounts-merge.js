@@ -8,19 +8,19 @@ var accountsMerge = function(accounts) {
     let graph = {};
     let nameDict = {};
     
-    for (let acc of accounts) {
-        let name = acc[0];
-        nameDict[acc[1]] = name;
-        for (let i=1;i<acc.length;i++) {
-            if (!graph[acc[i]]) graph[acc[i]] = new Set();
-            nameDict[acc[i]] = name;
+    for (let account of accounts) {
+        let name = account[0];
+        
+        for (let i=1;i<account.length;i++) {
+            if (!graph[account[i]]) graph[account[i]] = new Set();
+            nameDict[account[i]] = name;
             if (i != 1) {
-                graph[acc[1]].add(acc[i]);
-                graph[acc[i]].add(acc[1]);
+                graph[account[1]].add(account[i]);
+                graph[account[i]].add(account[1]);
             }
         }
     }
-    
+   // console.log(graph,nameDict)
     let res = [];
     let visited = new Set();
     
