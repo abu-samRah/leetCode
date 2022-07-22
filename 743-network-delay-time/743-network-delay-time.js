@@ -19,7 +19,7 @@ const networkDelayTime = function (times, n, k) {
 
 const dijkstra = (signalReceivedAt, k, n, adj) => {
   // priority queue
-  let pq = new PriorityQueue((a, b) => a.priority > b.priority);
+  let pq = new PriorityQueue((a, b) => a.priority < b.priority);
   // start from 0 and source k
   signalReceivedAt[k] = 0;
   pq.push({element:k, priority:0});
