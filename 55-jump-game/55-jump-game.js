@@ -12,8 +12,8 @@ var canJump = function(nums) {
         let counter = nums[curr]
         while(counter > 0){
             const next = curr+counter
+            if(next === end-1) return true
             if(next < end && !visited[next]) {
-                if(next === end-1) return true
                 queue.push(next)
                 visited[next] = 1
             } 
