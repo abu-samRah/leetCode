@@ -3,9 +3,8 @@
  * @return {boolean}
  */
 var canJump = function(nums) {
-    const start = 0
     const end = nums.length -1
-    const queue = [start]
+    const queue = [0]
     const visited = {start : true}
     
     while(queue.length){
