@@ -6,6 +6,7 @@ var canJump = function(nums) {
     const end = nums.length
     const queue = [0]
     const visited = new Array(end).fill(0)
+    
     visited[0] = 1
     while(queue.length){
         const curr = queue.shift()
@@ -14,7 +15,7 @@ var canJump = function(nums) {
         let counter = nums[curr]
         while(counter > 0){
             const next = curr+counter
-            if(next <= end && !visited[next]) {
+            if(next < end && !visited[next]) {
                 queue.push(next)
                 visited[next] = 1
             } 
