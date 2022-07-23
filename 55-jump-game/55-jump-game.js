@@ -3,23 +3,23 @@
  * @return {boolean}
  */
 var canJump = function(nums) {
-    const end = nums.length
-    const queue = [0]
-    const visited = new Array(end).fill(0)
-    if(nums.length<=1) return true
-    while(queue.length){
-        const curr = queue.shift()
-        let counter = nums[curr]
-        while(counter > 0){
-            const next = curr+counter
-            if(next >= end-1) return true
-            if(!visited[next]) {
-                queue.push(next)
-                visited[next] = 1
-            } 
-            counter--
-        }   
+  let idx = 0;
+  let max = 0;
+  let target = nums.length - 1;
+
+  while(idx < nums.length) {
+    max = Math.max(max, idx + nums[idx]);
+    
+    if (max >= target) {
+      return true;
     }
     
-    return false
+    if (max <= idx && nums[idx] === 0) {
+      return false;
+    }
+    
+    idx++;
+  }
+  
+  return false;
 };
