@@ -6,7 +6,9 @@ var canJump = function(nums) {
     const end = nums.length
     const queue = [0]
     const visited = new Array(end).fill(0)
+    
     if(nums.length<=1) return true
+    
     visited[0] = 1
     while(queue.length){
         const curr = queue.shift()
