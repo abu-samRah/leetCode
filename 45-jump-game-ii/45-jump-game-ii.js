@@ -6,9 +6,9 @@ var jump = function(nums) {
     const end = nums.length
     const queue = [0]
     const visited = new Array(end).fill(0)
-     let ans = 1
+  
     if(nums.length<=1) return 0
-    
+    let ans = 1
     let currLen = queue.length , i = 0
    
     while(i<currLen){
