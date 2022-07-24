@@ -7,9 +7,8 @@ var climbStairs = function(n) {
     let y = 2
     
     for(let i = 2; i<n; i++){
-        let temp = y
-        y = x+y
-        x= temp
+        [y,x] = [y+x,y]
+        
     }
     return n==1 ? 1 : y
 };
