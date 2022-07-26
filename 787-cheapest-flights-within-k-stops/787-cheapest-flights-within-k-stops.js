@@ -7,11 +7,10 @@
  * @return {number}
  */
 var findCheapestPrice = function(n, flights, src, dst, k) {
-    const MAX = Number.MAX_SAFE_INTEGER;
+    
     const m = flights.length;
 	
     const adjList = {};
-    const dists = new Array(n).fill(MAX);
     const visited = new Map();
     
     for (let i = 0; i < n; i++) {
@@ -23,25 +22,27 @@ var findCheapestPrice = function(n, flights, src, dst, k) {
         adjList[u].push([v, cost]);
     }
     
+    
     const pq = new PriorityQueue((a, b) => a[1] < b[1]);
-    pq.push([ src, 0 , k+1]);
+    
+    pq.push([ src, 0 ,k+1 ]);
     
     while (!pq.isEmpty()) {
         // pop
-        const [ node, cost ,stops] = pq.pop();
+        const [ node, cost,stops ] = pq.pop();
+        
         visited.set(node, stops);
         //check goal
         if (isGoal(node, dst)) return cost;
         
         //check pass
-        if (stops <= 0 || !adjList[node]) continue;
+        if (stops <= 0) continue;
         
         //check nieghbours
         for (const [nei, weight] of adjList[node]) {
-                 if(visited.has(nei) && visited.get(nei) >= stops-1) continue;
-                dists[nei] = cost + weight;
-                pq.push([nei, dists[nei],stops-1]);
-            
+            if (check(stops, visited, nei)) {
+                pq.push([nei, cost + weight,stops -1]);
+            }
         }
            
     }
@@ -51,7 +52,7 @@ var findCheapestPrice = function(n, flights, src, dst, k) {
 
 const isGoal = (node, end) => node === end
 
-const check = (prob, weight, dists,nei) => prob + weight < dists[nei]
+const check = (stops, visited,nei) => !(visited.has(nei) && visited.get(nei) >= stops-1)
 
 
 const top = 0;
@@ -121,3 +122,46 @@ class PriorityQueue {
     }
   }
 }
+
+/*
+const MAX = Number.MAX_SAFE_INTEGER;
+    const m = flights.length;
+	
+    const adjList = {};
+    const dists = new Array(n).fill(MAX);
+    const visited = new Map();
+    
+    for (let i = 0; i < n; i++) {
+        adjList[i] = [];
+    }
+    
+    for (let i = 0; i < m; i++) {
+        const [u, v,cost] = flights[i];
+        adjList[u].push([v, cost]);
+    }
+    
+    const pq = new PriorityQueue((a, b) => a[1] < b[1]);
+    pq.push([ src, 0 , k+1]);
+    
+    while (!pq.isEmpty()) {
+        // pop
+        const [ node, cost ,stops] = pq.pop();
+        visited.set(node, stops);
+        //check goal
+        if (isGoal(node, dst)) return cost;
+        
+        //check pass
+        if (stops <= 0 || !adjList[node]) continue;
+        
+        //check nieghbours
+        for (const [nei, weight] of adjList[node]) {
+                 if(visited.has(nei) && visited.get(nei) >= stops-1) continue;
+                dists[nei] = cost + weight;
+                pq.push([nei, dists[nei],stops-1]);
+            
+        }
+           
+    }
+    
+    return -1;
+*/
