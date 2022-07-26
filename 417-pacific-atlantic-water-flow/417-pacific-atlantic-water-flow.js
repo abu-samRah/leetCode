@@ -11,13 +11,13 @@ var pacificAtlantic = function(matrix) {
    }
    
    for (let col=0 ;col<matrix[0].length;col++){
-       dfs(matrix, 0, col, Number.MIN_SAFE_INTEGER, pacific)
-       dfs(matrix, numRows - 1, col, Number.MIN_SAFE_INTEGER, atlantic)
+       dfs(matrix, 0, col, matrix[0][col], pacific)
+       dfs(matrix, numRows - 1, col, matrix[numRows - 1][col], atlantic)
    }
     
     for (let row = 0;row<matrix.length; row++){
-        dfs(matrix, row, 0, Number.MIN_SAFE_INTEGER, pacific)
-        dfs(matrix, row, numCols - 1, Number.MIN_SAFE_INTEGER, atlantic)
+        dfs(matrix, row, 0, matrix[row][0], pacific)
+        dfs(matrix, row, numCols - 1, matrix[row][numCols - 1], atlantic)
     }
     
     let res = []
@@ -38,7 +38,9 @@ const dfs = (matrix, i, j, prev, ocean) =>{
     if (i<0 ||
        i > matrix.length -1 ||
        j < 0 ||
-       j > matrix[i].length - 1
+       j > matrix[i].length - 1 ||
+       ocean[i][j] ||
+       matrix[i][j] < prev
       ) return
     
     
