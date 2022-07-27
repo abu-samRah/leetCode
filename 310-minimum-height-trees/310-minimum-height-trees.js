@@ -17,6 +17,7 @@ var findMinHeightTrees = function(n, edges) {
       leaves.push(node);
     }
   }
+    console.log(leaves)
   
   while (m > 2) {
     m -= leaves.length;
