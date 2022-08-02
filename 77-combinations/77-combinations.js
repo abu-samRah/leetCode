@@ -7,7 +7,6 @@ var combine = function(n, k) {
     const ans = []
     const getAllPossibleComb = (n,k,val) => {
         if(k === 0) {
-            //console.log('inside', val)
             ans.push(val)
             return
         }
