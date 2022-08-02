@@ -4,24 +4,21 @@
  * @return {number[][]}
  */
 var combine = function(n, k) {
-    const ans = []
-    const getAllPossibleComb = (n,k,val) => {
-        if(k === 0) {
-            ans.push(val)
-            return
-        }
-        for(let i=1;i<=n;i++){
-            const length = val.length
-            if(!length){
-                getAllPossibleComb(n,k-1,[i])
-            }
-            if(i>val[length-1]){
-                getAllPossibleComb(n,k-1,[...val,i])
-               }
-           
-        }
-    }
-    getAllPossibleComb(n,k,[])
-    
-    return ans
+    let out = comb(k, n);
+    // console.log(out);
+    return out;
 };
+
+
+function comb(max, n, out=[], curr = [], index = 1){
+    if(curr.length===max){
+        out.push(curr);
+        return [];
+    }
+    else{
+        while(index<=n){
+            comb(max, n, out, [...curr, index], ++index);
+        }
+        return out;
+    }
+}
