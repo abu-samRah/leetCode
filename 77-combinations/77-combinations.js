@@ -11,10 +11,11 @@ var combine = function(n, k) {
             return
         }
         for(let i=1;i<=n;i++){
-            if(!val.length){
+            const length = val.length
+            if(!length){
                 getAllPossibleComb(n,k-1,[i])
             }
-            if(i>val[val.length-1]){
+            if(i>val[length-1]){
                 getAllPossibleComb(n,k-1,[...val,i])
                }
            
