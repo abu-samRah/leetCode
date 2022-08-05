@@ -5,7 +5,7 @@ var combinationSum4 = function(nums, target) {
     function getCombinations(target) {
         
         if (target === 0) return 1;
-        if (target < 0) return 0;
+       // if (target < 0) return 0;
         if (!isNaN(memo[target])) return memo[target]
         let count = 0;
         
