@@ -1,16 +1,17 @@
 var combinationSum4 = function(nums, target) {
     const n = nums.length;
     const memo = {};
-    
+    const check = target
     function getCombinations(target) {
-        if (target === 0) return 1;
+        if(target > check) return 0
+        if (target === check) return 1;
         if (!isNaN(memo[target])) return memo[target]
-        let count = 0;
         
+        let count = 0;
         for (let i = 0; i < n; i++) {
             const num = nums[i];
-            if (num <= target) {
-                const amountLeft = target - num;
+            if (num <= check) {
+                const amountLeft = target + num;
                 count += getCombinations(amountLeft);
             }
         }
@@ -18,5 +19,5 @@ var combinationSum4 = function(nums, target) {
         memo[target]  = count;
         return count;
     }
-     return getCombinations(target);
+     return getCombinations(0);
 };
