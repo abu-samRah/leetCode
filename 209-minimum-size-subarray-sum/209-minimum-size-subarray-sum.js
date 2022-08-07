@@ -6,8 +6,8 @@
 var minSubArrayLen = function(target, nums) {
     let minLength = Infinity
     let sum = 0
-    
     let startWindow = 0
+    
     for(let endWindow=0; endWindow<nums.length; endWindow++){
         sum+= nums[endWindow]
         while(sum>=target){
