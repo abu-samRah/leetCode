@@ -14,7 +14,6 @@ var findMaxAverage = function(nums, k) {
             sum -= nums[i-k]
             sum += nums[i]
         }
-        //console.log(i , sum)
     }
     return max
 };
