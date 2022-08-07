@@ -21,13 +21,3 @@ var totalFruit = function(fruits) {
     return max
     
 };
-
-/*
-max = -infinity
-k = 2
-types = {2:3,3:1}
-[1,2,3,2,2]
-   s     e
-startWindow,endWindow
-
-*/
