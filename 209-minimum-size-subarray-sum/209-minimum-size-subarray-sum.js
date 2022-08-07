@@ -14,7 +14,6 @@ var minSubArrayLen = function(target, nums) {
             minLength = Math.min(minLength,endWindow-startWindow+1)
             sum -= nums[startWindow++]
         }
-        //console.log({sum,startWindow,endWindow,minLength})
     }
     
     return minLength === Infinity ? 0 : minLength
