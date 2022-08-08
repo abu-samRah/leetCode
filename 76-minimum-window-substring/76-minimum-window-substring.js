@@ -6,7 +6,8 @@
 var minWindow = function(str, pattern) {
   let matched = 0
   const charFrequency = {};
-  let ans = str + pattern
+  let substrStart = 0
+  let minLen = str.length + 1
 
   for (let i = 0; i < pattern.length; i++) 
     charFrequency[pattern[i]] = (charFrequency[pattern[i]] || 0) +1
@@ -22,8 +23,9 @@ var minWindow = function(str, pattern) {
     }
 
     while (matched === pattern.length) {
-      if((windowEnd-windowStart) < ans.length) {
-          ans = str.substring(windowStart,windowEnd+1)
+      if(windowEnd-windowStart + 1 < minLen) {
+          minLen = windowEnd-windowStart+1
+          substrStart = windowStart
       }
       
       let leftChar = str[windowStart];
@@ -38,6 +40,6 @@ var minWindow = function(str, pattern) {
         
     }
 
-  return ans.length>str.length ? '' : ans;
+  return minLen > str.length  ? '' : str.substring(substrStart, substrStart + minLen);
 };
     
