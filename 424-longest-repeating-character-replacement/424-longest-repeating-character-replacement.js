@@ -19,7 +19,6 @@ var characterReplacement = function(str, k) {
     if ((windowEnd - windowStart + 1 - maxRepeatLetterCount) > k) {
       let leftChar = str[windowStart];
       frequencyMap[leftChar] -= 1;
-      if(!frequencyMap[leftChar]) delete frequencyMap[leftChar]
       windowStart += 1;
     }
 
