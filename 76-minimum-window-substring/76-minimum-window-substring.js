@@ -16,12 +16,12 @@ var minWindow = function(str, pattern) {
     const rightChar = str[windowEnd];
     if (rightChar in charFrequency) {
       charFrequency[rightChar] -= 1;
-      if (charFrequency[rightChar] === 0) {
+      if (charFrequency[rightChar] >= 0) {
         matched += 1;
       }
     }
 
-    while (matched === Object.keys(charFrequency).length) {
+    while (matched === pattern.length) {
       if((windowEnd-windowStart) < ans.length) {
           ans = str.substring(windowStart,windowEnd+1)
       }
