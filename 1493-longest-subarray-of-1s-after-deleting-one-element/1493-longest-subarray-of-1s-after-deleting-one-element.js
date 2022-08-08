@@ -22,6 +22,5 @@ var longestSubarray = function(arr) {
     maxLength = Math.max(maxLength, windowEnd - windowStart + 1);
   }
 
-   //console.log(maxLength,frequencyMap)
   return isNaN(frequencyMap[1])? 0 :maxLength-1;
 };
