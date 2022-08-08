@@ -38,7 +38,6 @@ var minWindow = function(str, pattern) {
         
     }
 
-
   return ans.length>str.length ? '' : ans;
 };
     
