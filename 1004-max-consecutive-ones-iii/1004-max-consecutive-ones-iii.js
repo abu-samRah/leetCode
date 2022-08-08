@@ -24,6 +24,6 @@ var longestOnes = function(arr, k) {
 
     maxLength = Math.max(maxLength, windowEnd - windowStart + 1);
   }
-    //console.log(frequencyMap)
+   
   return isNaN(frequencyMap[1])? k :maxLength;
 };
