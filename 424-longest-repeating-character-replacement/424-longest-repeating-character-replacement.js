@@ -14,7 +14,7 @@ var characterReplacement = function(str, k) {
       
     frequencyMap[rightChar] = (frequencyMap[rightChar] || 0 ) +1
     
-    maxRepeatLetterCount = Object.values(frequencyMap).reduce((acc,next) => acc>next? acc : next , 0);
+    maxRepeatLetterCount = Math.max(maxRepeatLetterCount, frequencyMap[rightChar]);
     
     if ((windowEnd - windowStart + 1 - maxRepeatLetterCount) > k) {
       let leftChar = str[windowStart];
