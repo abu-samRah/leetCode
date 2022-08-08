@@ -4,16 +4,15 @@
  * @return {string}
  */
 var minWindow = function(str, pattern) {
-    let matched = 0
+  let matched = 0
   const charFrequency = {};
-  let ans = [0,Number.MAX_SAFE_INTEGER] 
+  let ans = str + pattern
 
   for (let i = 0; i < pattern.length; i++) 
     charFrequency[pattern[i]] = (charFrequency[pattern[i]] || 0) +1
     
   let windowStart = 0
-  let windowEnd = 0
-  for (; windowEnd < str.length; windowEnd++) {
+  for (let windowEnd = 0; windowEnd < str.length; windowEnd++) {
     const rightChar = str[windowEnd];
     if (rightChar in charFrequency) {
       charFrequency[rightChar] -= 1;
@@ -23,10 +22,8 @@ var minWindow = function(str, pattern) {
     }
 
     while (matched === Object.keys(charFrequency).length) {
-        
-      if((windowEnd-windowStart) < (ans[1] - ans[0])) {
-          
-          ans = [ windowStart,windowEnd]
+      if((windowEnd-windowStart) < ans.length) {
+          ans = str.substring(windowStart,windowEnd+1)
       }
       
       let leftChar = str[windowStart];
@@ -42,20 +39,6 @@ var minWindow = function(str, pattern) {
     }
 
 
-
-  return ans[1] === Number.MAX_SAFE_INTEGER ? '' : str.substring(ans[0],ans[1]+1);
+  return ans.length>str.length ? '' : ans;
 };
-    
-/*
-if (windowEnd >= pattern.length - 1) {
-      let leftChar = str[windowStart];
-      windowStart += 1;
-      if (leftChar in charFrequency) {
-        if (charFrequency[leftChar] === 0) {
-          matched -= 1;
-        }
-        charFrequency[leftChar] += 1;
-      }
-    }
-*/
     
