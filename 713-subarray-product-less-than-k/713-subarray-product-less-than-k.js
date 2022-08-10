@@ -14,9 +14,9 @@ var numSubarrayProductLessThanK = function(arr, target) {
       left += 1;
     } 
     
-    for (let i = right; i > left - 1; i--) {
-      result++
-    }
+  
+      result+=right-left+1
+    
   }
   
   return result;
