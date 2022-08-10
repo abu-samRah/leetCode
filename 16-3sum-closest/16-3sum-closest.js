@@ -4,21 +4,19 @@
  * @return {number}
  */
 var threeSumClosest = function(arr, targetSum) {
-     arr.sort((a, b) => a - b);
+  arr.sort((a, b) => a - b);
   let smallest_difference = Infinity;
+    
   for (let i = 0; i < arr.length - 2; i++) {
-    let left = i + 1,
-      right = arr.length - 1;
+    let left = i + 1
+    let right = arr.length - 1;
+      
     while (left < right) {
       const target_diff = targetSum - arr[i] - arr[left] - arr[right];
-      if (target_diff === 0) { // we've found a triplet with an exact sum
-        return targetSum; // return sum of all the numbers
-      }
+      if (target_diff === 0) return targetSum; 
 
-      // the second part of the following 'if' is to handle the smallest sum when we have more than one solution
-      if (Math.abs(target_diff) < Math.abs(smallest_difference) ||
-        (Math.abs(target_diff) === Math.abs(smallest_difference) && target_diff > smallest_difference)) {
-        smallest_difference = target_diff; // save the closest and the biggest difference
+      if (Math.abs(target_diff) < Math.abs(smallest_difference) ) {
+        smallest_difference = target_diff; 
       }
 
 
