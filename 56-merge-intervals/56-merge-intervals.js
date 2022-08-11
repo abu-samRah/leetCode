@@ -8,6 +8,7 @@ var merge = function(intervals) {
     
     const result = [intervals[0]];
     
+    
     for(let [start, end] of intervals) {
         if(start <= result[result.length - 1][1]) {
             const [startPrev, endPrev] = result.pop();
