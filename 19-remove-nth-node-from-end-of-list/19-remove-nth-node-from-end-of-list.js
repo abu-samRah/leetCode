@@ -20,9 +20,8 @@ var removeNthFromEnd = function(head, n) {
     }
     const nodeToDelete = i - n 
     
-    if(nodeToDelete > 0) {
-        map[nodeToDelete - 1].next = map[nodeToDelete].next 
-        //console.log(nodeToDelete)
-    }
+    if(nodeToDelete > 0) 
+        map[nodeToDelete - 1].next = map[nodeToDelete].next
+    
     return nodeToDelete > 0 ? head : head.next
 }; 
