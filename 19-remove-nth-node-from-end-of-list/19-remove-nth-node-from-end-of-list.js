@@ -11,17 +11,13 @@
  * @return {ListNode}
  */
 var removeNthFromEnd = function(head, n) {
-    const map = {}
-    let tmp = head
-    let i=0
-    for(; tmp;i++){
-        map[i] = tmp
-        tmp = tmp.next
-    }
-    const nodeToDelete = i - n 
-    
-    if(nodeToDelete > 0) 
-        map[nodeToDelete - 1].next = map[nodeToDelete].next
-    
-    return nodeToDelete > 0 ? head : head.next
+   let fast = head, slow = head
+    for (let i = 0; i < n; i++) fast = fast.next
+
+    if (!fast) return head.next
+    while (fast.next) fast = fast.next, slow = slow.next
+
+    slow.next = slow.next.next
+    return head
+   
 }; 
