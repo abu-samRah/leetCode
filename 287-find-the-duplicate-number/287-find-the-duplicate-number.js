@@ -13,13 +13,11 @@ var findDuplicate = function(nums) {
     }
   }
   
-  let missingNumbers = 0;
 
   for (i = 0; i < nums.length; i++) {
     if (nums[i] !== i + 1) {
-      return (nums[i])
+      return nums[i]
     }
   }
 
-  return missingNumbers;
 };
