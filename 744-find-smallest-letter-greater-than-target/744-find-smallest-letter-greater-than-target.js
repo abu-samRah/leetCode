@@ -14,5 +14,5 @@ var nextGreatestLetter = function(nums, target) {
       
   }
   
-  return nums[low] ? nums[low] : nums[0]
+  return nums[low] ??  nums[0]
 };
