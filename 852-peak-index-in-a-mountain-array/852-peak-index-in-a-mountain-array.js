@@ -14,6 +14,6 @@ var peakIndexInMountainArray = function(arr) {
     }
   }
 
-  // at the end of the while loop, 'start === end'
+ 
   return start
 };
