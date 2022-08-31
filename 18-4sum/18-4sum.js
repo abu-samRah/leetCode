@@ -6,11 +6,11 @@
 var fourSum = function(arr, target) {
   arr.sort((a, b) => a - b)
   const quadruplets = [];
-  for (let i = 0; i < arr.length - 3; i++) {
+  for (let i = 0; i < arr.length; i++) {
     if (i > 0 && arr[i] === arr[i - 1]) {
       continue;
     }
-    for (let j = i + 1; j < arr.length - 2; j++) {
+    for (let j = i + 1; j < arr.length ; j++) {
       if (j > i + 1 && arr[j] === arr[j - 1]) {
         continue;
       }
