@@ -1,5 +1,5 @@
 var pacificAtlantic = function(matrix) {
-    if (matrix.length === 0) return [] 
+   if (matrix.length === 0) return [] 
    let numRows = matrix.length
    let numCols = matrix[0].length
    
@@ -43,9 +43,7 @@ const dfs = (matrix, i, j, prev, ocean) =>{
        matrix[i][j] < prev
       ) return
     
-    
-    if (matrix[i][j] < prev) return
-    if (ocean[i][j]) return
+
     ocean[i][j] = true
     
     dfs(matrix, i+1, j, matrix[i][j], ocean)
