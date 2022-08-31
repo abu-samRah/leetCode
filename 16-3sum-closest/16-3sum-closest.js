@@ -15,10 +15,9 @@ var threeSumClosest = function(arr, targetSum) {
       const target_diff = targetSum - arr[i] - arr[left] - arr[right];
       if (target_diff === 0) return targetSum; 
 
-      if (Math.abs(target_diff) < Math.abs(smallest_difference) ) {
+      if (Math.abs(target_diff) < Math.abs(smallest_difference)) {
         smallest_difference = target_diff; 
       }
-
 
       if (target_diff > 0) {
         left += 1; // we need a triplet with a bigger sum
