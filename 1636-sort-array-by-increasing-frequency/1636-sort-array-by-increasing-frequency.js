@@ -99,10 +99,9 @@ var frequencySort = function(nums) {
     
     for(let n of nums) map[n] = (map[n] || 0) + 1
    
-    const minHeap = new BinaryHeap((a,b) => {
-        if(map[a] !== map[b]) return map[a] - map[b]
-        else { return b - a }
-    })
+    const minHeap = new BinaryHeap((a,b) => 
+       map[a] - map[b] || b - a 
+    )
     
     const values = Object.keys(map)
     
