@@ -13,9 +13,7 @@
 var goodNodes = function(root) {
     let count = 0
     const dfs = (node,prev) =>{
-        
         if(!node) return
-        //console.log(node.val,prev)
         if(node.val>=prev) count++
         dfs(node.left,Math.max(node.val,prev))
         dfs(node.right,Math.max(node.val,prev))
