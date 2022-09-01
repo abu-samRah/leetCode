@@ -1,61 +1,118 @@
- // ============ Min Heap Class
-    class MinHeap {
-        
-        constructor(capacity) {
-            this.capacity = capacity;
-            this.value = [];
-        }
-        
-        add(val) {
-            this.value.push(val);
-            this.bubbleUp(this.value.length-1);
-            if(this.value.length > this.capacity) this.remove();
-        }
-        
-        remove() {
-            this.swap(0, this.value.length-1);
-            const min = this.value.pop();
-            this.trickleDown(0);  
-            return min;
-        }
-        
-        bubbleUp(idx) {
-            const parent = Math.floor((idx-1)/2);
-            let max = idx;
-            
-            if(parent >= 0 && this.value[parent] > this.value[max]) max = parent;
-            
-            if(max !== idx) {
-                this.swap(max, idx);
-                this.bubbleUp(max);
-            }
-        }
-        
-        trickleDown(idx) {
-            const leftChild = 2 * idx + 1;
-            const rightChild = 2 * idx + 2;
-            let min = idx;
-            
-            if(leftChild < this.value.length && this.value[leftChild] < this.value[min]) min = leftChild;
-            if(rightChild < this.value.length && this.value[rightChild] < this.value[min]) min = rightChild;
-            
-            if(min !== idx) {
-                this.swap(min, idx);
-                this.trickleDown(min);
-            }
-        }
-        
-        swap(i, j) {
-            [this.value[i], this.value[j]] = [this.value[j], this.value[i]];
-        }
-    }
 
+// ============ Min Heap Class
+    class BinaryHeap {
+  constructor(comparator = (a, b) => {
+  	return (a < b) ? -1 : (a === b ? 0 : 1);
+  }) {
+    this.heap = [];
+    this.comparator = comparator;
+  }
+  size() {
+    return this.heap.length;
+  }
+
+  getLeftIndex(index) {
+  	return 2 * index + 1;
+  }
+  getRightIndex(index) {
+  	return 2 * index + 2;
+  }
+  getParentIndex(index) {
+  	return Math.floor((index - 1) / 2);
+  }
+    
+    insert(data) {
+  	if (data === undefined || data === null) {
+    	return false;
+    }
+    this.heap.push(data);
+    this.bubbleUp(this.heap.length - 1);
+    return true;
+  }
+  bubbleUp(index) {    
+    while (index > 0) {
+      let curr = this.heap[index];
+      let parentIndex = this.getParentIndex(index);
+      let parent = this.heap[parentIndex];
+      
+      let compare = this.comparator(parent, curr);
+      if (compare < 0 || compare === 0) {
+        break;
+      }
+      
+      this.swap(index, parentIndex);
+      index = parentIndex;
+    }
+  }
+  swap(a, b) {
+  	[this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]];
+  }
+    
+    peak() {
+  	return this.size() > 0 ? this.heap[0] : undefined;
+  }
+    
+    extract() {
+  	if (this.size() === 0) {
+    	return undefined;
+    }
+    
+    if (this.size() === 1) {
+    	return this.heap.shift();
+    }
+    
+    const value = this.heap[0];
+    this.heap[0] = this.heap.pop();
+    this.sinkDown(0);
+    return value;
+  }
+  sinkDown(currIndex) {
+    let left = this.getLeftIndex(currIndex);
+    let right = this.getRightIndex(currIndex);
+    let parentIndex = currIndex;
+    
+    if (left < this.size() && this.comparator(this.heap[left], this.heap[parentIndex]) < 0) {
+      parentIndex = left;
+    }
+    
+    if (right < this.size() && this.comparator(this.heap[right], this.heap[parentIndex]) < 0) {
+      parentIndex = right;
+    }
+    
+    if (parentIndex !== currIndex) {
+    	this.swap(parentIndex, currIndex);
+      this.sinkDown(parentIndex);
+    }
+  }
+    
+    values(){
+        return this.heap
+    }
+}
+
+/*
+[3,2,1,5,6,4]
+   5
+  /
+ 6
+ 
+*/
 
 var findKthLargest = function(nums, k) {
     
-    const minHeap = new MinHeap(k);
+    const minHeap = new BinaryHeap((a,b) => a - b);
     
-    for(let n of nums) minHeap.add(n);
+    for(let n of nums) {
+        if(minHeap.size()<k){
+            minHeap.insert(n)
+        }else{
+            if(minHeap.peak()<n){
+                 minHeap.extract()
+                 minHeap.insert(n)
+            }
+        }
+    }
     
-    return minHeap.remove();
+    
+    return minHeap.peak();
 };
