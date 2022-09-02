@@ -25,13 +25,13 @@ var maxProbability = function(n, edges, succProb, start, end) {
         adjList[v].push([u, weight]);
     }
     
-    const maxHeap = new PriorityQueue((a, b) => a[1] > b[1]);
+    const maxHeap = new BinaryHeap((a, b) => b[1] - a[1]);
     
-    maxHeap.push([ start, 1 ]);
+    maxHeap.insert([ start, 1 ]);
     
-    while (!maxHeap.isEmpty()) {
+    while (maxHeap.size()) {
         // pop
-        const [ node, prob ] = maxHeap.pop();
+        const [ node, prob ] = maxHeap.extract();
         //check goal
         if (isGoal(node, end)) return prob;
         
@@ -42,7 +42,7 @@ var maxProbability = function(n, edges, succProb, start, end) {
         for (const [nei, weight] of adjList[node]) {
             if (check(prob, weight, dists, nei)) {
                 dists[nei] = prob * weight;
-                maxHeap.push([nei, dists[nei]]);
+                maxHeap.insert([nei, dists[nei]]);
             }
         }
            
@@ -56,70 +56,94 @@ const isGoal = (node, end) => node === end
 const check = (prob, weight, dists,nei) => prob * weight > dists[nei]
 
 
-const top = 0;
-const parent = i => ((i + 1) >>> 1) - 1;
-const left = i => (i << 1) + 1;
-const right = i => (i + 1) << 1;
 
-class PriorityQueue {
-  constructor(comparator = (a, b) => a > b) {
-    this._heap = [];
-    this._comparator = comparator;
+
+class BinaryHeap {
+  constructor(comparator = (a, b) => {
+  	return (a < b) ? -1 : (a === b ? 0 : 1);
+  }) {
+    this.heap = [];
+    this.comparator = comparator;
   }
   size() {
-    return this._heap.length;
+    return this.heap.length;
   }
-  isEmpty() {
-    return this.size() == 0;
+
+  getLeftIndex(index) {
+  	return 2 * index + 1;
   }
-  peek() {
-    return this._heap[top];
+  getRightIndex(index) {
+  	return 2 * index + 2;
   }
-  push(...values) {
-    values.forEach(value => {
-      this._heap.push(value);
-      this._siftUp();
-    });
-    return this.size();
+  getParentIndex(index) {
+  	return Math.floor((index - 1) / 2);
   }
-  pop() {
-    const poppedValue = this.peek();
-    const bottom = this.size() - 1;
-    if (bottom > top) {
-      this._swap(top, bottom);
+    
+    insert(data) {
+  	if (data === undefined || data === null) {
+    	return false;
     }
-    this._heap.pop();
-    this._siftDown();
-    return poppedValue;
+    this.heap.push(data);
+    this.bubbleUp(this.heap.length - 1);
+    return true;
   }
-  replace(value) {
-    const replacedValue = this.peek();
-    this._heap[top] = value;
-    this._siftDown();
-    return replacedValue;
-  }
-  _greater(i, j) {
-    return this._comparator(this._heap[i], this._heap[j]);
-  }
-  _swap(i, j) {
-    [this._heap[i], this._heap[j]] = [this._heap[j], this._heap[i]];
-  }
-  _siftUp() {
-    let node = this.size() - 1;
-    while (node > top && this._greater(node, parent(node))) {
-      this._swap(node, parent(node));
-      node = parent(node);
+  bubbleUp(index) {    
+    while (index > 0) {
+      let curr = this.heap[index];
+      let parentIndex = this.getParentIndex(index);
+      let parent = this.heap[parentIndex];
+      
+      let compare = this.comparator(parent, curr);
+      if (compare < 0 || compare === 0) {
+        break;
+      }
+      
+      this.swap(index, parentIndex);
+      index = parentIndex;
     }
   }
-  _siftDown() {
-    let node = top;
-    while (
-      (left(node) < this.size() && this._greater(left(node), node)) ||
-      (right(node) < this.size() && this._greater(right(node), node))
-    ) {
-      let maxChild = (right(node) < this.size() && this._greater(right(node), left(node))) ? right(node) : left(node);
-      this._swap(node, maxChild);
-      node = maxChild;
+  swap(a, b) {
+  	[this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]];
+  }
+    
+    peak() {
+  	return this.size() > 0 ? this.heap[0] : undefined;
+  }
+    
+    extract() {
+  	if (this.size() === 0) {
+    	return undefined;
+    }
+    
+    if (this.size() === 1) {
+    	return this.heap.shift();
+    }
+    
+    const value = this.heap[0];
+    this.heap[0] = this.heap.pop();
+    this.sinkDown(0);
+    return value;
+  }
+  sinkDown(currIndex) {
+    let left = this.getLeftIndex(currIndex);
+    let right = this.getRightIndex(currIndex);
+    let parentIndex = currIndex;
+    
+    if (left < this.size() && this.comparator(this.heap[left], this.heap[parentIndex]) < 0) {
+      parentIndex = left;
+    }
+    
+    if (right < this.size() && this.comparator(this.heap[right], this.heap[parentIndex]) < 0) {
+      parentIndex = right;
+    }
+    
+    if (parentIndex !== currIndex) {
+    	this.swap(parentIndex, currIndex);
+      this.sinkDown(parentIndex);
     }
   }
+    
+    values(){
+        return this.heap
+    }
 }
