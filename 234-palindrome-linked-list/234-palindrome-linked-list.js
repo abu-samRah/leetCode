@@ -23,7 +23,7 @@ var isPalindrome = function(head) {
         slow = temp
     }
     
-     console.log(prev)
+  
     let tail = prev
     
     while(tail && head){
@@ -35,9 +35,3 @@ var isPalindrome = function(head) {
     
     return true
 };
-/*
- 1. 2. 3  4.<= 5.<= 6. 
-                        t
-          p             s
-                    p
-*/
