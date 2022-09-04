@@ -52,7 +52,3 @@ function find_next_index(arr, isForward, currentIndex) {
   return nextIndex;
 }
 
-/*     s
-   [-2,1,-1,-2,-2]
-       f
-*/
