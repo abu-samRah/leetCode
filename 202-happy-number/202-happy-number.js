@@ -3,20 +3,15 @@
  * @return {boolean}
  */
 
-var isHappy = function(num) {
-   let slow = num,
-        fast = num;
-    while (true) {
-        slow = find_square_sum(slow); // move one step
-        fast = find_square_sum(find_square_sum(fast)); // move two steps
-        if (slow === fast) { // found the cycle
-            break;
-        }
+var isHappy = function(n) {
+    let seen = {};
+    while (n !== 1 && !seen[n]) {
+        seen[n] = true;
+        n = sumOfSquares(n);
     }
-    return slow === 1; // see if the cycle is stuck on the number '1'
-}
-
-function find_square_sum(num) {
+    return n === 1 ? true : false;
+};
+function sumOfSquares(num) {
     let sum = 0;
     while ((num > 0)) {
         const digit = num % 10;
