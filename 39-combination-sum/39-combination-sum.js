@@ -7,8 +7,7 @@ var combinationSum = function(candidates, target) {
    
     const getCombinations = (sum,out,val) =>{
         if(sum === target ) {
-            
-             out.push(val)
+            out.push(val)
             return
         }
         if(sum>target) return
@@ -17,15 +16,8 @@ var combinationSum = function(candidates, target) {
             if(!val.length || candidates[i]>=val[val.length-1])
                 getCombinations(sum+candidates[i], out , [...val,candidates[i]])
            
-        
-        
         return out
     }
     return getCombinations(0,[],[])
     
 };
-
-/*
-getCombinations(candidates,target,sum,out)
-for(let i = 0)
-*/
