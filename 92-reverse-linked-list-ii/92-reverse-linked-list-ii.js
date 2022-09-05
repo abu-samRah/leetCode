@@ -38,6 +38,8 @@ var reverseBetween = function(head, p, q) {
     i += 1;
   }
     
+ 
+    
   last_node_of_first_part ? last_node_of_first_part.next = previous : head = previous
   
   last_node_of_sub_list.next = current;
