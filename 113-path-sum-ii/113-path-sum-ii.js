@@ -1,0 +1,34 @@
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} targetSum
+ * @return {number[][]}
+ */
+var pathSum = function(root, targetSum) {
+    let allPaths = [];
+    find_paths_recursive(root, targetSum, [], allPaths);
+    return allPaths;
+};
+
+function find_paths_recursive(currentNode, sum, currentPath, allPaths) {
+  if (currentNode === null) {
+    return;
+  }
+  currentPath.push(currentNode.val);
+
+  if (currentNode.val === sum && currentNode.left === null && currentNode.right === null) {
+    allPaths.push([...currentPath]);
+  } else {
+    find_paths_recursive(currentNode.left, sum - currentNode.val, [...currentPath], allPaths);
+    find_paths_recursive(currentNode.right, sum - currentNode.val, [...currentPath], allPaths);
+  }
+  
+  currentPath.pop();
+}
