@@ -15,7 +15,7 @@ var hasPathSum = function(root, targetSum) {
       
     const dfs = (node,currSum) =>{
         if(!node) return false
-        let sum = currSum + node.val
+        const sum = currSum + node.val
 
         if(sum === targetSum && !node.left && !node.right) return true
 
