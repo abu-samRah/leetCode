@@ -12,7 +12,7 @@
  */
 var rightSideView = function (root) {
   if(!root) return []
-  const res = [root.val]; // result array 
+  const res = [root.val]; 
   const queue = [root];
   let i = 0, currLen =  queue.length
   while (i<currLen) {
