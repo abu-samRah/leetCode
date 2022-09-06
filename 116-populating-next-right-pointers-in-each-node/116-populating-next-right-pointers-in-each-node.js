@@ -17,9 +17,11 @@ var connect = function(root) {
     if(!root) return root
     let currLen = queue.length , i=0
     let ordering = []
+    let prev = null
     while(i<currLen){
         const curr = queue.shift()
-        ordering.push(curr)
+        if(prev) prev.next = curr
+        prev = curr
         if(curr.left) queue.push(curr.left)
         if(curr.right) queue.push(curr.right)
         
@@ -28,10 +30,7 @@ var connect = function(root) {
         if(i >= currLen){
             i = 0
             currLen = queue.length
-            for(let i=0;i<ordering.length -1;i++)
-                ordering[i].next = ordering[i+1]
-            
-            ordering=[]
+            prev = null
         }
     }
     
