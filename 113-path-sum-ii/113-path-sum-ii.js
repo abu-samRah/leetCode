@@ -12,25 +12,20 @@
  * @return {number[][]}
  */
 var pathSum = function(root, targetSum) {
-    let allPaths = [];
-    
-    function find_paths_recursive(currentNode, sum, currentPath) {
-      if (!currentNode) {
-        return;
-      }
-      currentPath.push(currentNode.val);
-
-      if (currentNode.val === sum && !currentNode.left && !currentNode.right) {
-        allPaths.push([...currentPath]);
-      } else {
-        find_paths_recursive(currentNode.left, sum - currentNode.val, [...currentPath], allPaths);
-        find_paths_recursive(currentNode.right, sum - currentNode.val, [...currentPath], allPaths);
-      }
-
-      currentPath.pop();
+    const ans = []
+    const dfs = (node, sum, path) =>{
+       
+        if(!node) return 
+        path.push(node.val)
+        if(node.val ===  sum && !node.left && !node.right) ans.push([...path]) 
+        else{
+            dfs(node.left  ,sum  - node.val ,[...path]) 
+            dfs(node.right ,sum  - node.val ,[...path])
+        }
+       
+         //path.pop()
     }
     
-    find_paths_recursive(root, targetSum, []);
-    return allPaths;
+    dfs(root,targetSum,[])
+    return ans
 };
-
