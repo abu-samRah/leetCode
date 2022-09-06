@@ -28,7 +28,7 @@ var pathSum = function(root, targetSum) {
        
         dfs(node.left  ,sum  ,[...path]) 
         dfs(node.right ,sum ,[...path])
-        path.pop()
+        //path.pop()
        
     }
     
