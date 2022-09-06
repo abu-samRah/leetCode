@@ -13,17 +13,17 @@
  */
 var pathSum = function(root, targetSum) {
     const ans = []
+
     const dfs = (node, sum, path) =>{
-       
+        //console.log(path)
         if(!node) return 
         path.push(node.val)
         if(node.val ===  sum && !node.left && !node.right) ans.push([...path]) 
         else{
-            dfs(node.left  ,sum  - node.val ,[...path]) 
-            dfs(node.right ,sum  - node.val ,[...path])
+            dfs(node.left  ,sum  - node.val ,path) 
+            dfs(node.right ,sum  - node.val ,path)
         }
-       
-         //path.pop()
+        path.pop()
     }
     
     dfs(root,targetSum,[])
