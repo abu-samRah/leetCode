@@ -11,16 +11,18 @@
  * @param {number} targetSum
  * @return {boolean}
  */
-var hasPathSum = function(root, targetSum) {
+var hasPathSum = function(root, sum) {
       
-    const dfs = (node,currSum) =>{
-        if(!node) return false
-        const sum = currSum + node.val
+   if (root === null) {
+    return false;
+  }
 
-        if(sum === targetSum && !node.left && !node.right) return true
+  // if the current node is a leaf and its value is equal to the sum, we've found a path
+  if (root.val === sum && root.left === null && root.right === null) {
+    return true;
+  }
 
-        return dfs(node.left,sum) || dfs(node.right,sum) 
-    }
-    
-    return dfs(root,0)
+  // recursively call to traverse the left and right sub-tree
+  // return true if any of the two recursive call return true
+  return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
 };
