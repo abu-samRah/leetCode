@@ -13,22 +13,24 @@
  */
 var pathSum = function(root, targetSum) {
     let allPaths = [];
+    
+    function find_paths_recursive(currentNode, sum, currentPath) {
+      if (!currentNode) {
+        return;
+      }
+      currentPath.push(currentNode.val);
+
+      if (currentNode.val === sum && !currentNode.left && !currentNode.right) {
+        allPaths.push([...currentPath]);
+      } else {
+        find_paths_recursive(currentNode.left, sum - currentNode.val, [...currentPath], allPaths);
+        find_paths_recursive(currentNode.right, sum - currentNode.val, [...currentPath], allPaths);
+      }
+
+      currentPath.pop();
+    }
+    
     find_paths_recursive(root, targetSum, [], allPaths);
     return allPaths;
 };
 
-function find_paths_recursive(currentNode, sum, currentPath, allPaths) {
-  if (!currentNode) {
-    return;
-  }
-  currentPath.push(currentNode.val);
-
-  if (currentNode.val === sum && !currentNode.left && !currentNode.right) {
-    allPaths.push([...currentPath]);
-  } else {
-    find_paths_recursive(currentNode.left, sum - currentNode.val, [...currentPath], allPaths);
-    find_paths_recursive(currentNode.right, sum - currentNode.val, [...currentPath], allPaths);
-  }
-  
-  currentPath.pop();
-}
