@@ -18,12 +18,12 @@ var pathSum = function(root, targetSum) {
 };
 
 function find_paths_recursive(currentNode, sum, currentPath, allPaths) {
-  if (currentNode === null) {
+  if (!currentNode) {
     return;
   }
   currentPath.push(currentNode.val);
 
-  if (currentNode.val === sum && currentNode.left === null && currentNode.right === null) {
+  if (currentNode.val === sum && !currentNode.left && !currentNode.right) {
     allPaths.push([...currentPath]);
   } else {
     find_paths_recursive(currentNode.left, sum - currentNode.val, [...currentPath], allPaths);
