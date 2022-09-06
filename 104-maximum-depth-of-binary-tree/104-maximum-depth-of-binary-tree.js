@@ -11,8 +11,26 @@
  * @return {number}
  */
 var maxDepth = function(root) {
+    const queue = [root]
+    let ans = 1
     if(!root) return 0
-    const left = 1 + maxDepth(root.left)
-    const right = 1 + maxDepth(root.right)
-    return Math.max(left,right)
+    
+    let currLen = queue.length , i=0
+
+    while(i<currLen){
+        const front = queue.shift()
+        
+        if(front.left) queue.push(front.left)
+        if(front.right) queue.push(front.right)
+        
+        i++
+        
+        if(i >= currLen){
+            i = 0
+            currLen = queue.length
+            ans+=1
+        }
+    }
+    
+    return ans -1
 };
