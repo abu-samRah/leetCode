@@ -30,7 +30,7 @@ var pathSum = function(root, targetSum) {
       currentPath.pop();
     }
     
-    find_paths_recursive(root, targetSum, [], allPaths);
+    find_paths_recursive(root, targetSum, []);
     return allPaths;
 };
 
