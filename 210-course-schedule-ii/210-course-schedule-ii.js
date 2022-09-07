@@ -4,47 +4,38 @@
  * @return {number[]}
  */
 var findOrder = function(numCourses, prerequisites) {
-    const connections = prepareInput(numCourses,prerequisites);
-    const ordering = new Array(numCourses).fill(0)
-    let counter = {len:numCourses-1}
-    return solution(connections,ordering,counter)
-   
+        const [connections,inDegree] = prepareInput(numCourses,prerequisites);
+    const sources = [];
+    const ans = []
+    
+    for (let i = 0; i < inDegree.length; i++) {
+        if (inDegree[i] === 0) {
+          sources.push(i);
+        }
+    }
+    
+    while(sources.length){
+        const front = sources.shift()
+        ans.push(front)
+        
+        const curr = connections[front]
+        for(let i=0; i<curr.length; i++){
+            inDegree[curr[i]]--
+            if(inDegree[curr[i]] === 0) sources.push(curr[i])
+        }
+    }
+    
+    if(ans.length !== numCourses) return []
+    return ans
+    
 };
 
 const prepareInput = (numCourses, prerequisites) => {
   const connections =  [...Array(numCourses)].map(e => Array(0));
+    const inDegree = new Array(numCourses).fill(0)
   for (let i = 0; i < prerequisites.length; i++) {
       connections[prerequisites[i][1]].push(prerequisites[i][0]);
+      inDegree[prerequisites[i][0]]++
   }
-  return connections;
+  return [connections,inDegree];
 };
-
-const VISITED = 2, VISITING = 1, UNVISITED = 0;
-
-function solution(connections,ordering,counter) {
-    const visitedList = new Array(connections.length).fill(UNVISITED)
-    
-    for(let index=0; index<connections.length; index++){
-        if(visitedList[index] === UNVISITED) 
-            if(!dfs(index,connections,visitedList,ordering,counter))
-                return []
-    }
-
-    return ordering
-}
-
-const dfs = (index,connections,visitedList,ordering,counter) =>{
-    
-    visitedList[index] = VISITING
-    for(let neighbor of connections[index]){
-        if(visitedList[neighbor] === VISITING) return false
-        if(visitedList[neighbor] === UNVISITED)
-            if(!dfs(neighbor,connections,visitedList,ordering,counter)) 
-                return false
-    }
-
-    visitedList[index] = VISITED
-    ordering[counter.len] = index
-    counter.len = counter.len -1
-    return true
-}
