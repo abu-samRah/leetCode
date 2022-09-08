@@ -16,18 +16,3 @@ var summaryRanges = function(nums) {
     
     return ans
 };
-
-/*
-
-[0,1,2,4,5,7] 
-           i 
-           j
-     
- 0=>2   4=>5  7
- 
- [-4,-2,-1,0,2,3,4,6]
-      i
-           j
-   
-   4. 
-*/
