@@ -3,7 +3,7 @@
  * @return {boolean}
  */
 var canPartition = function(num) {
-    let sum = 0;
+  let sum = 0;
   for (let i = 0; i < num.length; i++) sum += num[i];
 
   // if 'sum' is a an odd number, we can't have two subsets with equal sum
