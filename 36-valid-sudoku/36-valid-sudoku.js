@@ -7,7 +7,6 @@ var isValidSudoku = function(board) {
         let row = {}
         let col = {}
         let box = {}
-        console.log('****')
         for(let j =0; j<9; j++){
             const currRow = board[i][j]
             const currCol = board[j][i]
