@@ -22,6 +22,5 @@ var wordBreak = function(s, wordDict) {
     }
     
     return dfs('')
-    //console.log(seen)
-    //return x
+    
 };
