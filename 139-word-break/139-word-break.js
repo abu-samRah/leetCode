@@ -4,24 +4,28 @@
  * @return {boolean}
  */
 var wordBreak = function(s, wordDict) {
-    const seen = {}
-   
-    const dfs = (currString) =>{
-        if(currString.length > s.length) return false
+    if (wordDict == null || wordDict.length === 0) return false;
+  const set = new Set(wordDict);
 
-        if(currString === s) return true
-        
-        for(let i =0; i<wordDict.length; i++){
-            const newString = currString + wordDict[i]
-            if(!seen[newString] && s.includes(newString)){
-                seen[newString] = true
-                if(dfs(newString)) return true
-            }
+  // When s = 'catsandog', wordDict = ['cats', 'ca', 'ts']
+  // After 'cats' and 'ca', it will become 'andog', 'tsandog'
+  // For 'tsandog', after 'ts', it will become 'andog' again, visited set here is for memoization
+  const visited = new Set();
+  const q = [0];
+
+  while (q.length) {
+    const start = q.shift();
+
+    if (!visited.has(start)) {
+      for (let end = start + 1; end <= s.length; end++) {
+        if (set.has(s.slice(start, end))) {
+          if (end === s.length) return true;
+          q.push(end);
         }
-        
-        return false
+      }
+      visited.add(start);
     }
-    
-    return dfs('')
+  }
+  return false;
     
 };
