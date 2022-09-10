@@ -5,6 +5,7 @@
  */
 var wordBreak = function(s, wordDict) {
     const seen = {}
+   
     const dfs = (currString) =>{
         if(currString.length > s.length) return false
 
