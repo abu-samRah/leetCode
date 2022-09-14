@@ -9,7 +9,8 @@ var searchInsert = function(nums, target) {
     
     while(low < high){
         const mid = low + Math.floor((high - low) / 2)
-        if(nums[mid] >= target) high = mid
+        if(nums[mid] === target) return mid
+        if(nums[mid] > target) high = mid
         else low = mid + 1
     }
     
