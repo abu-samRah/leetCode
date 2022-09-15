@@ -23,8 +23,8 @@ var isPalindrome = function(head) {
         slow = temp
     }
     
-  
     let tail = prev
+    
     
     while(tail && head){
         if(tail.val !== head.val) return false
