@@ -25,11 +25,9 @@ var findCheapestPrice = function(n, flights, src, dst, k) {
     while(minHeap.size()){
         const[city,cost,stops] = minHeap.extract()
         visited.set(city, stops);
-        //dists[city] = stops
         
         if(isGoal(city,dst)) return cost
         
-        //if(dists[city] < cost) continue
         if(stops <= 0) continue
         
         for(let i=0; i<adjList[city].length; i++){
