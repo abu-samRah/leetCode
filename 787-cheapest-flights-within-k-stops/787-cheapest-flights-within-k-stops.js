@@ -7,118 +7,133 @@
  * @return {number}
  */
 var findCheapestPrice = function(n, flights, src, dst, k) {
+   const adjList = {}
+   //const dists = new Array(n).fill(Infinity)
+   const visited = new Map();
+   
+   for(let i=0; i<n; i++) adjList[i] = []
     
-    const m = flights.length;
-	
-    const adjList = {};
-    const visited = new Map();
-    
-    for (let i = 0; i < n; i++) {
-        adjList[i] = [];
+    for(let i =0; i<flights.length; i++){
+        const [parent,child,cost] = flights[i]
+        adjList[parent].push([child,cost])
     }
     
-    for (let i = 0; i < m; i++) {
-        const [u, v,cost] = flights[i];
-        adjList[u].push([v, cost]);
-    }
+    const minHeap = new BinaryHeap((a,b) => a[1] - b[1])
     
+    minHeap.insert([src,0,k+1])
     
-    const pq = new PriorityQueue((a, b) => a[1] < b[1]);
-    
-    pq.push([ src, 0 ,k+1 ]);
-    
-    while (!pq.isEmpty()) {
-        // pop
-        const [ node, cost,stops ] = pq.pop();
+    while(minHeap.size()){
+        const[city,cost,stops] = minHeap.extract()
+        visited.set(city, stops);
+        //dists[city] = stops
         
-        visited.set(node, stops);
-        //check goal
-        if (isGoal(node, dst)) return cost;
+        if(isGoal(city,dst)) return cost
         
-        //check pass
-        if (stops <= 0) continue;
+        //if(dists[city] < cost) continue
+        if(stops <= 0) continue
         
-        //check nieghbours
-        for (const [nei, weight] of adjList[node]) {
-            if (check(stops, visited, nei)) {
-                pq.push([nei, cost + weight,stops -1]);
+        for(let i=0; i<adjList[city].length; i++){
+            const[nextCity,newCost] = adjList[city][i]
+            if(check(stops,nextCity,visited)){
+                minHeap.insert([nextCity,newCost+cost,stops-1])
             }
         }
-           
     }
     
-    return -1;
+    return -1
 };
 
 const isGoal = (node, end) => node === end
 
-const check = (stops, visited,nei) => !(visited.has(nei) && visited.get(nei) >= stops-1)
+const check = (stops,nextCity,visited) => !(visited.has(nextCity) && visited.get(nextCity) >= stops-1)
 
 
-const top = 0;
-const parent = i => ((i + 1) >>> 1) - 1;
-const left = i => (i << 1) + 1;
-const right = i => (i + 1) << 1;
-
-class PriorityQueue {
-  constructor(comparator = (a, b) => a > b) {
-    this._heap = [];
-    this._comparator = comparator;
+class BinaryHeap {
+  constructor(comparator = (a, b) => {
+  	return (a < b) ? -1 : (a === b ? 0 : 1);
+  }) {
+    this.heap = [];
+    this.comparator = comparator;
   }
   size() {
-    return this._heap.length;
+    return this.heap.length;
   }
-  isEmpty() {
-    return this.size() == 0;
+
+  getLeftIndex(index) {
+  	return 2 * index + 1;
   }
-  peek() {
-    return this._heap[top];
+  getRightIndex(index) {
+  	return 2 * index + 2;
   }
-  push(...values) {
-    values.forEach(value => {
-      this._heap.push(value);
-      this._siftUp();
-    });
-    return this.size();
+  getParentIndex(index) {
+  	return Math.floor((index - 1) / 2);
   }
-  pop() {
-    const poppedValue = this.peek();
-    const bottom = this.size() - 1;
-    if (bottom > top) {
-      this._swap(top, bottom);
+    
+    insert(data) {
+  	if (data === undefined || data === null) {
+    	return false;
     }
-    this._heap.pop();
-    this._siftDown();
-    return poppedValue;
+    this.heap.push(data);
+    this.bubbleUp(this.heap.length - 1);
+    return true;
   }
-  replace(value) {
-    const replacedValue = this.peek();
-    this._heap[top] = value;
-    this._siftDown();
-    return replacedValue;
-  }
-  _greater(i, j) {
-    return this._comparator(this._heap[i], this._heap[j]);
-  }
-  _swap(i, j) {
-    [this._heap[i], this._heap[j]] = [this._heap[j], this._heap[i]];
-  }
-  _siftUp() {
-    let node = this.size() - 1;
-    while (node > top && this._greater(node, parent(node))) {
-      this._swap(node, parent(node));
-      node = parent(node);
+  bubbleUp(index) {    
+    while (index > 0) {
+      let curr = this.heap[index];
+      let parentIndex = this.getParentIndex(index);
+      let parent = this.heap[parentIndex];
+      
+      let compare = this.comparator(parent, curr);
+      if (compare < 0 || compare === 0) {
+        break;
+      }
+      
+      this.swap(index, parentIndex);
+      index = parentIndex;
     }
   }
-  _siftDown() {
-    let node = top;
-    while (
-      (left(node) < this.size() && this._greater(left(node), node)) ||
-      (right(node) < this.size() && this._greater(right(node), node))
-    ) {
-      let maxChild = (right(node) < this.size() && this._greater(right(node), left(node))) ? right(node) : left(node);
-      this._swap(node, maxChild);
-      node = maxChild;
+  swap(a, b) {
+  	[this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]];
+  }
+    
+    peak() {
+  	return this.size() > 0 ? this.heap[0] : undefined;
+  }
+    
+    extract() {
+  	if (this.size() === 0) {
+    	return undefined;
+    }
+    
+    if (this.size() === 1) {
+    	return this.heap.shift();
+    }
+    
+    const value = this.heap[0];
+    this.heap[0] = this.heap.pop();
+    this.sinkDown(0);
+    return value;
+  }
+  sinkDown(currIndex) {
+    let left = this.getLeftIndex(currIndex);
+    let right = this.getRightIndex(currIndex);
+    let parentIndex = currIndex;
+    
+    if (left < this.size() && this.comparator(this.heap[left], this.heap[parentIndex]) < 0) {
+      parentIndex = left;
+    }
+    
+    if (right < this.size() && this.comparator(this.heap[right], this.heap[parentIndex]) < 0) {
+      parentIndex = right;
+    }
+    
+    if (parentIndex !== currIndex) {
+    	this.swap(parentIndex, currIndex);
+      this.sinkDown(parentIndex);
     }
   }
+    
+    values(){
+        return this.heap
+    }
 }
