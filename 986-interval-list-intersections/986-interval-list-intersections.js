@@ -23,7 +23,7 @@ var intervalIntersection = function(firstList, secondList) {
         const [s1,e1] = firstList[i]
         const [s2,e2] = secondList[j]
         
-        if(s1>=s2 && s1<=e2  || s2>=s1 && s2<=e1){
+        if(s1<=e2  && s2<=e1){
             res.push([Math.max(s1,s2),Math.min(e1,e2)])
         }
         
