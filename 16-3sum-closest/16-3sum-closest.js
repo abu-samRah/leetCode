@@ -7,7 +7,7 @@ var threeSumClosest = function(arr, targetSum) {
   arr.sort((a, b) => a - b);
   let smallest_difference = Infinity;
     
-  for (let i = 0; i < arr.length - 2; i++) {
+  for (let i = 0; i < arr.length ; i++) {
     let left = i + 1
     let right = arr.length - 1;
       
