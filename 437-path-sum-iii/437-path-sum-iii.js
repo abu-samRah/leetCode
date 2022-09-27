@@ -40,8 +40,6 @@ function count_paths_recursive(currentNode, S, currentPath) {
   // traverse the right sub-tree
   pathCount += count_paths_recursive(currentNode.right, S, currentPath);
 
-  // remove the current node from the path to backtrack
-  // we need to remove the current node while we are going up the recursive call stack
   currentPath.pop();
   return pathCount;
 }
