@@ -10,6 +10,7 @@ var canJump = function(nums) {
     while(queue.length){
         const curr = queue.shift()
         let counter = nums[curr]
+        
         while(counter > 0){
             const next = curr+counter
             if(next >= end-1) return true
