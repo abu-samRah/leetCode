@@ -12,7 +12,7 @@ var combinationSum2 = function(candidates, target) {
             res.push([...cur]);
             return;
         }
-         if (curSum > target) return;
+         if (curSum > target || index>=candidates.length) return;
         
         for(let i = index; i < candidates.length; i++){
             if (i != index && candidates[i] == candidates[i-1]) continue; //already return, go next loop(not recursion)
