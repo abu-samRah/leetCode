@@ -4,20 +4,21 @@
  * @return {number[][]}
  */
 var combinationSum = function(candidates, target) {
-   
-    const getCombinations = (sum,out,val) =>{
+    const res = []
+    const getCombinations = (sum,index,val) =>{
         if(sum === target ) {
-            out.push(val)
+            res.push([...val])
             return
         }
-        if(sum>target) return
+        if(index >= candidates.length || sum > target) return
         
-        for(let i=0; i<candidates.length;i++)
-            if(!val.length || candidates[i]>=val[val.length-1])
-                getCombinations(sum+candidates[i], out , [...val,candidates[i]])
+        val.push(candidates[index])
+        getCombinations(sum+candidates[index], index, val)
+        val.pop()
+        getCombinations(sum, index+1 , val)
            
-        return out
     }
-    return getCombinations(0,[],[])
     
+    getCombinations(0,0,[])
+    return res
 };
