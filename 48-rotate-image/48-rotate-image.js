@@ -3,16 +3,30 @@
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
 var rotate = function(matrix) {
-    let n = matrix.length
-    const len = Math.floor(n / 2) + n % 2
-    for (let i =0; i < len; i++)
-        for (let j = 0; j< Math.floor(n / 2); j++){
-           let tmp = matrix[n - 1 - j][i]
-            matrix[n - 1 - j][i] = matrix[n - 1 - i][n - j - 1]
-            matrix[n - 1 - i][n - j - 1] = matrix[j][n - 1 -i]
-            matrix[j][n - 1 - i] = matrix[i][j]
-            matrix[i][j] = tmp
-        }
+    let left = 0
+    let right = matrix.length - 1
+    
+    while(left < right){
+        for(let i = 0; i<right-left; i++){
+            let top = left
+            let bottom = right
             
+            const tmp = matrix[top][left + i]
+            
+            matrix[top][left + i] = matrix[bottom - i][left]
+            
+            matrix[bottom - i][left] = matrix[bottom][right - i]
+            
+            matrix[bottom][right - i] = matrix[top + i ][right]
+            
+            matrix[top + i][right] = tmp
+            
+        }
+        
+        left++
+        right--
+    }
+         
+    return matrix
 };
 
