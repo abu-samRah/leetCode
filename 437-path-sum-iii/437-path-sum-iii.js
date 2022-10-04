@@ -12,22 +12,21 @@
  * @return {number}
  */
 var pathSum = function(root, S) {
-    
   let count = 0
- const dfs = (node,path)=>{
-
-   if(!node) return
-   path.push(node.val)
-   let sum = 0
-   for(let i =path.length-1; i>=0; i--){
-     sum+=path[i]
-     if(sum === S) count++
-   }
-   dfs(node.left,path)
-   dfs(node.right,path)
-   path.pop()
+ const map = {}
+ const dfs = (node,sum)=>{
+  if(!node) return
+  let newSum = sum + node.val
+  if(newSum === S) count++
+  if(map[newSum - S]){
+    count+= map[newSum - S]
+  }
+  map[newSum] = (map[newSum] || 0) + 1
+  dfs(node.left,newSum)
+  dfs(node.right,newSum)
+  map[newSum] = map[newSum] - 1
  }
-  dfs(root,[])
+  dfs(root,0)
   return count
 }
 
