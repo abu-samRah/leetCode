@@ -11,11 +11,24 @@
  * @param {number} targetSum
  * @return {number}
  */
-var pathSum = function(root, targetSum) {
+var pathSum = function(root, S) {
     
-  const map = new Map();
+  let count = 0
+ const dfs = (node,path)=>{
 
-  return count_paths_prefix_sum(root, targetSum, map, 0);
+   if(!node) return
+   path.push(node.val)
+   let sum = 0
+   for(let i =path.length-1; i>=0; i--){
+     sum+=path[i]
+     if(sum === S) count++
+   }
+   dfs(node.left,path)
+   dfs(node.right,path)
+   path.pop()
+ }
+  dfs(root,[])
+  return count
 }
 
 function count_paths_prefix_sum(node, targetSum, map, currentPathSum) {
