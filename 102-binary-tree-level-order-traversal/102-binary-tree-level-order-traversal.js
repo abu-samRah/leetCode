@@ -31,7 +31,7 @@ var levelOrder = function(root) {
     if(i>=currLen){
       i = 0
       currLen = queue.length
-      result.push([...ordering])
+      result.push(ordering)
       ordering = []
     }
   }
