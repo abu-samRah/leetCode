@@ -10,23 +10,23 @@
  * @param {TreeNode} root
  * @return {number}
  */
+
+
+
 var maxPathSum = function(root) {
-    let res = root.val
+    let sum = root.val
     
     const dfs = (node) =>{
         if(!node) return 0
         
-        let leftSum = dfs(node.left)
-        let rightSum = dfs(node.right)
+        const left =  Math.max(dfs(node.left),0)
+        const right = Math.max(dfs(node.right),0)
         
-        leftSum  = Math.max(leftSum,0)
-        rightSum = Math.max(rightSum,0)
+        sum = Math.max(sum, right+left+node.val)
         
-        res = Math.max((node.val + leftSum + rightSum) , res)
-        
-        return node.val + Math.max(leftSum ,rightSum)
+        return node.val + Math.max(left,right)
     }
     
     dfs(root)
-    return res
+    return sum
 };
