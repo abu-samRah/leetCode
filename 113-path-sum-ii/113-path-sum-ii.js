@@ -12,20 +12,22 @@
  * @return {number[][]}
  */
 var pathSum = function(root, targetSum) {
-    const ans = []
-
-    const dfs = (node, sum, path) =>{
-        //console.log(path)
-        if(!node) return 
-        path.push(node.val)
-        if(node.val ===  sum && !node.left && !node.right) ans.push([...path]) 
-        else{
-            dfs(node.left  ,sum  - node.val ,path) 
-            dfs(node.right ,sum  - node.val ,path)
-        }
-        path.pop()
+  let allPaths = [];
+  const dfs = (node,sum,path)=>{
+    if(!node) return 
+    const newSum = sum+node.val
+    path.push(node.val)
+    if(newSum === targetSum && !node.left && !node.right) {
+      allPaths.push([...path])
+      path.pop()
+      return
     }
     
-    dfs(root,targetSum,[])
-    return ans
+    dfs(node.left,newSum,path) 
+    dfs(node.right,newSum,path)
+    path.pop()
+  }
+
+  dfs(root,0,[])
+  return allPaths;
 };
