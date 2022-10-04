@@ -11,26 +11,30 @@
  * @return {number[][]}
  */
 var levelOrder = function(root) {
-    const ans = []
-    const queue = [root]
-    if(!root) return ans
-    let currLen = queue.length , i=0
-    let ordering = []
-    while(i<currLen){
-        const curr = queue.shift()
-        ordering.push(curr.val)
-        if(curr.left) queue.push(curr.left)
-        if(curr.right) queue.push(curr.right)
-        
-        i++
-        
-        if(i >= currLen){
-            i = 0
-            currLen = queue.length
-            ans.push(ordering)
-            ordering=[]
-        }
-    }
+  const result = [];
+  if(!root) return result
     
-    return ans
+  const queue = [root]
+  let ordering = []
+
+  let i = 0
+  let currLen = queue.length
+
+  while(i<currLen){
+    const front = queue.shift()
+    ordering.push(front.val)
+
+    if(front.left) queue.push(front.left)
+    if(front.right) queue.push(front.right)
+
+    i++
+    if(i>=currLen){
+      i = 0
+      currLen = queue.length
+      result.push([...ordering])
+      ordering = []
+    }
+  }
+  
+  return result;
 };
