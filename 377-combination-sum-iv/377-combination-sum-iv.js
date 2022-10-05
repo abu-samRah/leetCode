@@ -1,23 +1,23 @@
 var combinationSum4 = function(nums, target) {
     const n = nums.length;
     const memo = {};
-    const check = target
-    function getCombinations(target) {
-        if(target > check) return 0
-        if (target === check) return 1;
-        if (!isNaN(memo[target])) return memo[target]
+    function getCombinations(curr) {
+        if(curr > target ) return 0
+        if (target === curr) return 1;
+        if (!isNaN(memo[curr])) return memo[curr]
         
         let count = 0;
         for (let i = 0; i < n; i++) {
             const num = nums[i];
-            if (num <= check) {
-                const amountLeft = target + num;
-                count += getCombinations(amountLeft);
+            if (num <= target) {
+                const next = curr + num;
+                count += getCombinations(next);
             }
         }
         
-        memo[target]  = count;
+        memo[curr]  = count;
         return count;
     }
-     return getCombinations(0);
+    const res = getCombinations(0);
+     return res
 };
