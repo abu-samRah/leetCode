@@ -13,7 +13,7 @@ var longestSubarray = function(nums, limit) {
           min = nums[i];
           max = min+limit;
           k=1;
-          while ((i-k>-1) && nums[i-k]<=min+limit && nums[i-k]>=min) {k++;}
+          while ((i-k>-1) &&  nums[i-k]>=min && nums[i-k]<=max ) {k++;}
       } else {
           k++;
       }
