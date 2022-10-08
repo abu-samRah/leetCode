@@ -4,7 +4,7 @@
  * @return {number}
  */
 var subarraysDivByK = function(nums, k) {
-    const prefix_sum = {0:1}
+    const prefix_sum = {}
     let ans = 0
     let sum = 0
     
@@ -13,7 +13,7 @@ var subarraysDivByK = function(nums, k) {
         let reminder = sum % k
         
         if(reminder<0) reminder+=k
-        
+        if(reminder === 0) ans+=1
         if(prefix_sum[reminder]) {
              ans+= prefix_sum[reminder]
         }
