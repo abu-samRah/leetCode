@@ -15,9 +15,9 @@ var isBipartite = function(graph) {
                 if (!colors.has(neighbour)) {
                     colors.set(neighbour, !colors.get(current));
                     stack.push(neighbour);
-                    continue;
+                   
                 }
-                if (colors.get(neighbour) === colors.get(current)) return false;
+                else if (colors.get(neighbour) === colors.get(current)) return false;
             }
         }
     }
