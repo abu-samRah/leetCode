@@ -1,21 +1,20 @@
 var isBipartite = function(graph) {
     const colors = new Map();
-    const stack = [];
+    const queue = [];
     
     for (let i = 0; i < graph.length; i++) {
         if (colors.has(i)) continue;
         
         colors.set(i, true);
-        stack.push(i);
+        queue.push(i);
         
-        while (stack.length > 0) {
-            let current = stack.pop();
+        while (queue.length > 0) {
+            let current = queue.shift();
             for (let neighbour of graph[current]) {
                 
                 if (!colors.has(neighbour)) {
                     colors.set(neighbour, !colors.get(current));
-                    stack.push(neighbour);
-                   
+                    queue.push(neighbour);
                 }
                 else if (colors.get(neighbour) === colors.get(current)) return false;
             }
