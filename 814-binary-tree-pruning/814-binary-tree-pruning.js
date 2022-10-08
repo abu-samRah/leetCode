@@ -11,8 +11,8 @@
  * @return {TreeNode}
  */
 const pruneTree = function(root) {
- root.right = root.right && pruneTree(root.right);
  root.left = root.left && pruneTree(root.left);
+ root.right = root.right && pruneTree(root.right);
  if(root.val === 0 && !root.right && !root.left)
    return null
  else
