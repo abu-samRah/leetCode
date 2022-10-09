@@ -7,13 +7,13 @@ var minimumSize = function(nums, maxOperations) {
   let i = 1
   let j = Math.max(...nums)
   
-  while (i < j) {
+  while (i <= j) {
     let mid = i + Math.floor((j-i)/2)
     let count = 0
     nums.forEach(n => count += Math.floor((n-1)/mid))
     
     if (count <= maxOperations) {
-      j = mid 
+      j = mid - 1 
     } else {
       i = mid + 1
     }
