@@ -9,7 +9,7 @@ var findSmallestSetOfVertices = function(n, edges) {
     const graph = new Array(n).fill(0)
     
     for(let i=0; i<edges.length;i++){
-        graph[edges[i][1]] = true
+        graph[edges[i][1]] = 1
     }
        
 
