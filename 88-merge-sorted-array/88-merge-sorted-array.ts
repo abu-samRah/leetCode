@@ -1,5 +1,5 @@
 function merge(nums1: number[], m: number, nums2: number[], n: number): void {
-  var insertPositionOfNums1 = m + n - 1;
+  let insertPositionOfNums1 = m + n - 1;
   m -= 1;
   n -= 1;
   while (n >= 0) {
