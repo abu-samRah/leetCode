@@ -6,40 +6,41 @@
 var minWindow = function(str, pattern) {
   let matched = 0
   const charFrequency = {};
-  let substrStart = 0
-  let minLen = str.length + 1
-
+  let ans = ''
+  let i = 0; let j = Infinity
   for (let i = 0; i < pattern.length; i++) 
     charFrequency[pattern[i]] = (charFrequency[pattern[i]] || 0) +1
     
-  let windowStart = 0
-  for (let windowEnd = 0; windowEnd < str.length; windowEnd++) {
-    const rightChar = str[windowEnd];
-    if (rightChar in charFrequency) {
-      charFrequency[rightChar] -= 1;
-      if (charFrequency[rightChar] >= 0) {
-        matched += 1;
-      }
+  let start = 0
+  let end = 0
+
+  while(end<str.length){
+    const currLetter = str[end]
+    if(currLetter in charFrequency){
+      charFrequency[currLetter] = --charFrequency[currLetter]
+      if(charFrequency[currLetter] === 0 ) matched++
     }
 
-    while (matched === pattern.length) {
-      if(windowEnd-windowStart + 1 < minLen) {
-          minLen = windowEnd-windowStart+1
-          substrStart = windowStart
+    while(matched === Object.keys(charFrequency).length ) {
+      if(end-start < j - i){
+        i = start
+        j = end
       }
-      
-      let leftChar = str[windowStart];
-      windowStart += 1;
-      if (leftChar in charFrequency) {
-        if (charFrequency[leftChar] === 0) {
-          matched -= 1;
-        }
-        charFrequency[leftChar] += 1;
+     
+     const charToRemove = str[start++]
+     if(charToRemove in charFrequency){
+        if(charFrequency[charToRemove]===0)matched--
+        charFrequency[charToRemove] = charFrequency[charToRemove] + 1
       }
-    }
-        
+
     }
 
-  return minLen > str.length  ? '' : str.substring(substrStart, substrStart + minLen);
+    end++
+
+  }
+
+   ans = str.substring(i,j+1)
+
+  return  j === Infinity ? '' : ans
 };
     
